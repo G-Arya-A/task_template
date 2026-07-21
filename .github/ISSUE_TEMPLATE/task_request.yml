@@ -1,0 +1,181 @@
+name: "TR - Task Request (Görev Talebi)"
+description: "Yeni bir görev talebi oluşturun"
+title: "[TR] "
+labels: ["state:analiz", "type:task", "priority:P3"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Görev Talebi Formu
+        Lütfen aşağıdaki alanları eksiksiz doldurunuz.
+        Tüm zorunlu alanları doldurmadan talep göndermeyiniz.
+
+  - type: input
+    id: requester
+    attributes:
+      label: "Talep Sahibi"
+      description: "Bu görevi kim talep ediyor?"
+      placeholder: "Ad Soyad veya Kullanıcı Adı"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: "Talep Türü"
+      description: "Bu talebin türü nedir?"
+      options:
+        - "Yeni Özellik (Feature)"
+        - "Hata Düzeltme (Bug Fix)"
+        - "İyileştirme (Enhancement)"
+        - "Teknik Borç (Tech Debt)"
+        - "Doküman Güncelleme"
+        - "Altyapı Değişikliği"
+        - "Diğer"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Öncelik Seviyesi"
+      description: "Bu görevin önceliği nedir?"
+      options:
+        - "P1 - Kritik (Acil, sistem durdurucu)"
+        - "P2 - Yüksek (Mühim, kısa sürede yapılmalı)"
+        - "P3 - Orta (Normal plan dahilinde)"
+        - "P4 - Düşük (İyileştirme, fırsat olduğunda)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Açıklama"
+      description: "Talep edilen görevi detaylı açıklayın"
+      placeholder: "Ne yapılması isteniyor? Neden gerekli?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Kabul Kriterleri (Acceptance Criteria)"
+      description: "Bu görevin başarılı sayılması için gereken koşullar"
+      placeholder: |
+        - [ ] Koşul 1
+        - [ ] Koşul 2
+        - [ ] Koşul 3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: assigned_team
+    attributes:
+      label: "Sorumlu Ekip"
+      description: "Bu görev hangi ekip tarafından yapılmalıdır?"
+      options:
+        - "Backend"
+        - "Frontend"
+        - "DevOps"
+        - "QA"
+        - "Dokümantasyon"
+        - "Tasarım"
+        - "Veri"
+        - "Genel"
+    validations:
+      required: true
+
+  - type: input
+    id: assigned_to
+    attributes:
+      label: "Atanacak Kişi(ler)"
+      description: "Görev kime atanacak? (Takım lideri onayı sonrası)"
+      placeholder: "@kullanici1, @kullanici2"
+    validations:
+      required: false
+
+  - type: input
+    id: target_version
+    attributes:
+      label: "Hedef Sürüm"
+      description: "Bu görev hangi sürümde tamamlanmalı?"
+      placeholder: "v1.2.0"
+    validations:
+      required: false
+
+  - type: input
+    id: deadline
+    attributes:
+      label: "Son Tarih"
+      description: "Bu görevin bitiş tarihi nedir?"
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "Bağımlılıklar"
+      description: "Bu göreve bağlı olan veya bu göreve bağımlı olan diğer görevler"
+      placeholder: |
+        - #123 - İlgili görev
+        - #456 - Bağımlı görev
+    validations:
+      required: false
+
+  - type: textarea
+    id: related_docs
+    attributes:
+      label: "İlgili Dokümanlar"
+      description: "Bu görevle ilgili dokümanlar, linkler"
+      placeholder: |
+        - [Doküman Adı](link)
+        - [Spec](link)
+    validations:
+      required: false
+
+  - type: textarea
+    id: communication
+    attributes:
+      label: "İletişim Kanalı"
+      description: "Bu görevle ilgili iletişim için kullanılacak kanal"
+      placeholder: |
+        Chat Linki: [link]
+        Kanal Adı: #proje-adi
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Ek Notlar"
+      description: "Eklemek istediğiniz notlar"
+      placeholder: "Ek bilgiler, uyarılar, notlar..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Kontrol Listesi (Checklist)"
+      description: "Görev oluştururken kontrol edilmesi gerekenler"
+      options:
+        - label: "Gereksinimler net ve anlaşılır"
+          required: false
+        - label: "Kabul kriterleri tanımlı"
+          required: false
+        - label: "Öncelik belirlendi"
+          required: false
+        - label: "İlgili kişiler bilgilendirildi"
+          required: false
+        - label: "Dokümanlar eklendi"
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Durum Akışı**: ANALİZ → ONAYLI → ATANMIŞ → BAŞLAMADI → BAŞLADI → KOD GÖZDEN GEÇİRME → TEST PLANI → TEST → YAYIMLANMIŞ
+        **Revizyon Gerekirse**: REVİZYON → (yeni issue açmadan) ilgili duruma geri dönüş

@@ -1,0 +1,127 @@
+name: "BR - Bug Report (Hata Raporu)"
+description: "Yeni bir hata raporu oluşturun"
+title: "[BR] "
+labels: ["state:analiz", "type:bug", "priority:P2"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Hata Raporu Formu
+        Lütfen hatayı mümkün olduğunca detaylı açıklayın.
+
+  - type: input
+    id: reporter
+    attributes:
+      label: "Raporlayan"
+      description: "Bu hatayı kim tespit etti?"
+      placeholder: "Ad Soyad veya Kullanıcı Adı"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Hata Önemi"
+      description: "Bu hatanın önem seviyesi"
+      options:
+        - "Kritik - Sistem çöküyor/çalışmıyor"
+        - "Yüksek - Temel özellik çalışmıyor"
+        - "Orta - Kısmi çalışma sorunu"
+        - "Düşük - Kozmetik/küçük sorun"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Hata Açıklaması"
+      description: "Hatayı detaylı açıklayın"
+      placeholder: "Ne zaman, nerede, nasıl oluştu?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: "Tekrar Oluşturma Adımları"
+      description: "Hatayı tekrar oluşturmak için adımlar"
+      placeholder: |
+        1. ...'a gidin
+        2. ...'a tıklayın
+        3. ...'ı girin
+        4. Hata oluşur
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Beklenen Davranış"
+      description: "Ne olması gerekiyordu?"
+      placeholder: "Beklenen sonuç..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: "Gerçekleşen Davranış"
+      description: "Ne oldu?"
+      placeholder: "Gerçekleşen sonuç..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Ortam Bilgisi"
+      description: "Test ortamı, tarayıcı, OS vb."
+      placeholder: |
+        OS: Windows 11
+        Python: 3.11
+        Tarayıcı: Chrome 120
+        Ortam: Development / Production
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Ekran Görüntüleri / Loglar"
+      description: "Varsa ekran görüntüleri veya hata logları"
+      placeholder: "Dosya ekleyin veya log yapıştırın"
+    validations:
+      required: false
+
+  - type: textarea
+    id: communication
+    attributes:
+      label: "İletişim Kanalı"
+      description: "Bu hata ile ilgili iletişim kanalı"
+      placeholder: |
+        Chat Linki: [link]
+        Kanal Adı: #bug-report
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Hata Kontrol Listesi"
+      description: "Rapor oluşturmadan önce kontrol edilecekler"
+      options:
+        - label: "Hatayı tekrar oluşturabildim"
+          required: false
+        - label: "Benzer hata önceden raporlanmamış"
+          required: false
+        - label: "En son sürümde test ettim"
+          required: false
+        - label: "Ekran görüntüsü/log ekledim"
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Durum Akışı**: ANALİZ → ONAYLI → ATANMIŞ → BAŞLAMADI → BAŞLADI → KOD GÖZDEN GEÇİRME → TEST → YAYIMLANMIŞ

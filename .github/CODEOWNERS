@@ -1,0 +1,28 @@
+# Codeowners
+# Her dosya/yolu için bir sahip tanımlayın
+# Daha fazla bilgi: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Varsayılan sahip
+* @takim-lideri
+
+# Backend
+/src/backend/ @backend-team
+
+# Frontend
+/src/frontend/ @frontend-team
+
+# DevOps
+/.github/ @devops-team
+/Dockerfile @devops-team
+/docker-compose.yml @devops-team
+
+# Test
+/tests/ @qa-team
+
+# Dokümantasyon
+/docs/ @dokumantasyon-team
+
+# Yapılandırma
+/pyproject.toml @takim-lideri
+/requirements*.txt @takim-lideri
+/.pre-commit-config.yaml @takim-lideri

@@ -1,0 +1,178 @@
+# Yaşam Döngüsü Etiketleri (State Labels)
+- name: "state:analiz"
+  color: "ededed"
+  description: "Analiz aşamasında"
+
+- name: "state:onaylı"
+  color: "0e8a16"
+  description: "Takım lideri tarafından onaylandı"
+
+- name: "state:atanmış"
+  color: "1d76db"
+  description: "İlgili kişiye/gruba atandı"
+
+- name: "state:başlamadı"
+  color: "fbca04"
+  description: "Atanmış ama henüz başlanmamış"
+
+- name: "state:başladı"
+  color: "006b75"
+  description: "Çalışma devam ediyor (WIP)"
+
+- name: "state:kod-gözden-geçirme"
+  color: "5319e7"
+  description: "Kod gözden geçirme aşamasında"
+
+- name: "state:test-plani"
+  color: "bfdadc"
+  description: "Test senaryoları hazırlanıyor"
+
+- name: "state:test"
+  color: "d93f0b"
+  description: "Testler çalışıyor"
+
+- name: "state:revizyon"
+  color: "e11d48"
+  description: "Revizyon gerektiriyor"
+
+- name: "state:yayınlanmış"
+  color: "0e8a16"
+  description: "Sürüm yayımlandı (Released)"
+
+# Tip Etiketleri (Type Labels)
+- name: "type:task"
+  color: "1d76db"
+  description: "Görev talebi"
+
+- name: "type:bug"
+  color: "d73a4a"
+  description: "Hata raporu"
+
+- name: "type:revision"
+  color: "e11d48"
+  description: "Revizyon talebi"
+
+- name: "type:feature"
+  color: "a2eeef"
+  description: "Yeni özellik"
+
+- name: "type:enhancement"
+  color: "a2eeef"
+  description: "İyileştirme"
+
+- name: "type:docs"
+  color: "0075ca"
+  description: "Doküman güncellemesi"
+
+- name: "type:tech-debt"
+  color: "d4c5f9"
+  description: "Teknik borç"
+
+- name: "type:security"
+  color: "ee0701"
+  description: "Güvenlik ile ilgili"
+
+# Öncelik Etiketleri (Priority Labels)
+- name: "priority:P1"
+  color: "b60205"
+  description: "Kritik - Acil, sistem durdurucu"
+
+- name: "priority:P2"
+  color: "d93f0b"
+  description: "Yüksek - Mühim, kısa sürede yapılmalı"
+
+- name: "priority:P3"
+  color: "fbca04"
+  description: "Orta - Normal plan dahilinde"
+
+- name: "priority:P4"
+  color: "0e8a16"
+  description: "Düşük - İyileştirme, fırsat olduğunda"
+
+# Revizyon Kategorisi Etiketleri
+- name: "rev:document"
+  color: "c2e0c6"
+  description: "Doküman revizyonu"
+
+- name: "rev:debug"
+  color: "f9d0c4"
+  description: "Hata düzeltme revizyonu"
+
+- name: "rev:enhancement"
+  color: "bfdadc"
+  description: "İyileştirme revizyonu"
+
+- name: "rev:refactoring"
+  color: "d4c5f9"
+  description: "Yeniden yapılanma revizyonu"
+
+- name: "rev:requirement"
+  color: "fef2c0"
+  description: "Gereksinim değişikliği"
+
+- name: "rev:performance"
+  color: "c2e0c6"
+  description: "Performans optimizasyonu"
+
+- name: "rev:security"
+  color: "ee0701"
+  description: "Güvenlik düzeltmesi"
+
+# Olay Etiketleri (Event Labels)
+- name: "event:request-approved"
+  color: "0e8a16"
+  description: "Talep onaylandı"
+
+- name: "event:test-passed"
+  color: "0e8a16"
+  description: "Testler başarılı"
+
+- name: "event:test-failed"
+  color: "b60205"
+  description: "Testler başarısız"
+
+- name: "event:version-released"
+  color: "0075ca"
+  description: "Sürüm yayımlandı"
+
+- name: "event:revision-requested"
+  color: "e11d48"
+  description: "Revizyon istendi"
+
+# Sprint/Ekip Etiketleri
+- name: "team:backend"
+  color: "1d76db"
+  description: "Backend ekibi"
+
+- name: "team:frontend"
+  color: "5e6bce"
+  description: "Frontend ekibi"
+
+- name: "team:devops"
+  color: "006b75"
+  description: "DevOps ekibi"
+
+- name: "team:qa"
+  color: "bfdadc"
+  description: "QA ekibi"
+
+- name: "team:docs"
+  color: "0075ca"
+  description: "Dokümantasyon ekibi"
+
+# Doküman Kategorisi Etiketleri
+- name: "doc:gelen"
+  color: "ededed"
+  description: "Gelen doküman"
+
+- name: "doc:girdi"
+  color: "c2e0c6"
+  description: "Girdi yapılan doküman"
+
+- name: "doc:gönderilen"
+  color: "1d76db"
+  description: "Gönderilen doküman"
+
+- name: "doc:revize"
+  color: "fbca04"
+  description: "Revize edilmiş doküman"

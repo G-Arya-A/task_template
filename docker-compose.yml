@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yazilim-app
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=development
+      - DEBUG=true
+    volumes:
+      - ./src:/app/src
+      - ./storage:/app/storage
+    restart: unless-stopped
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deps
+    container_name: yazilim-test
+    command: pytest tests/ -v --cov=src
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+
+  lint:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deps
+    container_name: yazilim-lint
+    command: ruff check src/ tests/ && black --check src/ tests/
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests

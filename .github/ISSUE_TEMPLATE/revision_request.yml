@@ -1,0 +1,168 @@
+name: "RR - Revision Request (Revizyon Talebi)"
+description: "Mevcut bir görevin revize edilmesi için talep oluşturun (yeni issue açmadan)"
+title: "[RR] "
+labels: ["state:revizyon", "type:revision"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Revizyon Talebi Formu
+        **Önemli**: Bu form yeni bir issue oluşturmaz, mevcut issue'yu revize eder.
+        Lütfen ilgili issue numarasını belirtiniz.
+
+  - type: input
+    id: related_issue
+    attributes:
+      label: "İlgili Issue Numarası"
+      description: "Revize edilecek issue numarası"
+      placeholder: "#123"
+    validations:
+      required: true
+
+  - type: input
+    id: requester
+    attributes:
+      label: "Revizyon Talep Eden"
+      description: "Bu revizyonu kim talep ediyor?"
+      placeholder: "Ad Soyad veya Kullanıcı Adı"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: revision_category
+    attributes:
+      label: "Revize Kategorisi"
+      description: "Bu revizyon hangi kategoride?"
+      options:
+        - "Doküman (Document) - Doküman düzeltme/güncelleme"
+        - "Debug (Hata Düzeltme) - Tespit edilen hataları düzeltme"
+        - "Enhancement (İyileştirme) - Mevcut özelliğin geliştirilmesi"
+        - "Refactoring (Yeniden Yapılanma) - Kod yapısının iyileştirilmesi"
+        - "Gereksinim Değişikliği - gereksinimlerde oluşan değişiklik"
+        - "Performans - Performans optimizasyonu"
+        - "Güvenlik - Güvenlik açığı düzeltmesi"
+        - "Uyumluluk - Uyumluluk/güncelleme"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: revision_severity
+    attributes:
+      label: "Revizyon Önemi"
+      description: "Bu revizyonun önem seviyesi"
+      options:
+        - "Kritik - Sistem çalışıyor ama kritik eksiklik var"
+        - "Yüksek - Belirgin bir sorun var, düzeltilmeli"
+        - "Orta - İyileştirme yapılabilir"
+        - "Düşük - Küçük dokunuşlar"
+    validations:
+      required: true
+
+  - type: textarea
+    id: revision_reason
+    attributes:
+      label: "Revizyon Sebebi"
+      description: "Neden revizyon gerekiyor? Detaylı açıklayın"
+      placeholder: |
+        Hangi durum düzeltilmeli/güncellenmeli?
+        Mevcut durum ne?
+        İstenen durum ne?
+    validations:
+      required: true
+
+  - type: textarea
+    id: original_behavior
+    attributes:
+      label: "Mevcut Durum (As-is)"
+      description: "Şu anki durum nedir?"
+      placeholder: "Mevcut davranış, sonuç..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "İstenen Durum (To-be)"
+      description: "İstenen durum nedir?"
+      placeholder: "Beklenen davranış, sonuç..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Revize Kabul Kriterleri"
+      description: "Revizyonun başarılı sayılması için gereken koşullar"
+      placeholder: |
+        - [ ] Revize kriter 1
+        - [ ] Revize kriter 2
+        - [ ] Revize kriter 3
+    validations:
+      required: true
+
+  - type: input
+    id: assigned_to
+    attributes:
+      label: "Revizyon Sorumlusu"
+      description: "Revizyon kime atanacak?"
+      placeholder: "@kullanici"
+    validations:
+      required: true
+
+  - type: textarea
+    id: related_docs
+    attributes:
+      label: "İlgili Dokümanlar"
+      description: "Revizyonla ilgili dokümanlar"
+      placeholder: |
+        - [Güncellenen Doküman](link)
+        - [Revize Edilen Spec](link)
+    validations:
+      required: false
+
+  - type: textarea
+    id: communication
+    attributes:
+      label: "İletişim Kanalı"
+      description: "Revizyon süreci için iletişim kanalı"
+      placeholder: |
+        Chat Linki: [link]
+        Kanal Adı: #proje-revizyon
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Ek Notlar"
+      description: "Ek bilgiler, uyarılar"
+      placeholder: "Revizyon ile ilgili ek notlar..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Revizyon Kontrol Listesi"
+      description: "Revizyon sürecinde kontrol edilecekler"
+      options:
+        - label: "Revizyon sebebi net ve anlaşılır"
+          required: false
+        - label: "Mevcut ve istenen durum açıkça tanımlı"
+          required: false
+        - label: "Revize kriterleri tanımlı"
+          required: false
+        - label: "Revizyon sorumlusu belirlendi"
+          required: false
+        - label: "İlgili dokümanlar eklendi"
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Revizyon Akışı**:
+        REVİZYON → İlgili kişiye atanır → Değişiklikler yapılır → KOD GÖZDEN GEÇİRME → TEST → YAYIMLANMIŞ
+        
+        **Not**: Revizyon tamamlandığında ilgili issue'nun durumu otomatik olarak güncellenir.

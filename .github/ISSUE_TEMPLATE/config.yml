@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Genel Chat"
+    url: "[TEAM_CHAT_LINK]"
+    about: "Takım iletişim kanalı"
+  - name: "Tech Chat"
+    url: "[TECH_CHAT_LINK]"
+    about: "Teknik tartışmalar için"
+  - name: "Acil Durum"
+    url: "[EMERGENCY_CHANNEL_LINK]"
+    about: "Kritik sorunlar için acil iletişim"
