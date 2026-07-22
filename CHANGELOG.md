@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/G-Arya-A/task_template/compare/v1.1.0...v1.2.0) (2026-07-22)
+
+
+### Features
+
+* RR kapatildiginda otomatik label guncelleme eklendi ([af3b0ac](https://github.com/G-Arya-A/task_template/commit/af3b0acc7ef639f6945490e3df8207798be649a7))
+
 # [1.1.0](https://github.com/G-Arya-A/task_template/compare/v1.0.0...v1.1.0) (2026-07-21)
 
 
