@@ -2,7 +2,7 @@ name: Issue Lifecycle Manager
 
 on:
   issues:
-    types: [opened, labeled, unlabeled]
+    types: [opened, closed, labeled, unlabeled]
 
 permissions:
   issues: write
@@ -11,6 +11,7 @@ jobs:
   auto-label:
     name: Auto Label Manager
     runs-on: ubuntu-latest
+    if: github.event.action == 'opened'
     steps:
       - name: Manage Issue Labels
         uses: actions/github-script@v7
@@ -18,7 +19,6 @@ jobs:
           script: |
             const issue = context.payload.issue;
             const title = issue.title || '';
-            const labels = issue.labels.map(l => l.name);
 
             // Yeni RR acildiginda ilgili issue'yu revizyona gecir
             if (title.startsWith('[RR]') && issue.body) {
@@ -51,6 +51,55 @@ jobs:
                   });
 
                   console.log(`Issue #${parentIssueNum} state:revizyon olarak guncellendi`);
+                } catch (e) {
+                  console.log(`Ilgili issue bulunamadi: #${parentIssueNum}`);
+                }
+              }
+            }
+
+  on-rr-closed:
+    name: On RR Closed
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+    steps:
+      - name: Handle RR Close
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title || '';
+
+            // RR kapatildiginda ilgili issue'yu basladi'ya gecir
+            if (title.startsWith('[RR]') && issue.body) {
+              const match = issue.body.match(/#(\d+)/);
+              if (match) {
+                const parentIssueNum = parseInt(match[1]);
+                try {
+                  const parent = await github.rest.issues.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: parentIssueNum
+                  });
+
+                  const parentLabels = parent.data.labels.map(l => l.name);
+                  const newLabels = parentLabels.filter(l => !l.startsWith('state:'));
+                  newLabels.push('state:basladi');
+
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: parentIssueNum,
+                    labels: newLabels
+                  });
+
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: parentIssueNum,
+                    body: `✅ **Revizyon tamamlandi**\n\nRevizyon talebi kapatildi: #${context.issue.number}\n\nDurum: state:revizyon → state:basladi`
+                  });
+
+                  console.log(`Issue #${parentIssueNum} state:basladi olarak guncellendi`);
                 } catch (e) {
                   console.log(`Ilgili issue bulunamadi: #${parentIssueNum}`);
                 }
