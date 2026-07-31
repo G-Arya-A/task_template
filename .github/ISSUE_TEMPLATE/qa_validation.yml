@@ -11,7 +11,8 @@ body:
 
         This issue documents formal QA verification of a completed implementation.
         The implementation already exists — this is a **validation** artifact,
-        not a planning artifact.
+        not a planning artifact. The test plan lives in the related task (TR),
+        so it is not repeated here.
 
         Every field marked with a red asterisk is required.
 
@@ -86,19 +87,11 @@ body:
     attributes:
       value: "### 3. Test Results"
 
-  - type: textarea
-    id: test-cases
+  - type: markdown
     attributes:
-      label: "Test Cases"
-      description: "List of test cases executed, referencing the acceptance criteria from the related task."
-      placeholder: |
-        AC-1: User receives password reset email within 30 seconds → PASS
-        AC-2: Reset link expires after 15 minutes → PASS
-        AC-3: Error message shown if email not found → PASS
-        AC-4: Password respects existing policy (min 8 chars, 1 special) → PASS
-        AC-5: All existing auth tests continue to pass → PASS
-    validations:
-      required: true
+      value: |
+        Each test case in the related task's test plan was executed. If any case
+        was skipped, state why.
 
   - type: dropdown
     id: pass-fail
@@ -218,9 +211,7 @@ body:
       options:
         - label: "Build version and environment are documented"
           required: true
-        - label: "All acceptance criteria from the related task were tested"
-          required: true
-        - label: "Each test case has a clear pass/fail result"
+        - label: "All test cases from the related task's test plan were executed"
           required: true
         - label: "Failed cases include actual vs expected and severity"
           required: false
