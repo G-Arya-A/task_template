@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/G-Arya-A/task_template/compare/v1.2.0...v1.3.0) (2026-07-31)
+
+
+### Features
+
+* FR, ET, CR ve QV issue template'leri eklendi ([0c4bd42](https://github.com/G-Arya-A/task_template/commit/0c4bd4205c59b09beb489beebec6e900b53583cb))
+
 # [1.2.0](https://github.com/G-Arya-A/task_template/compare/v1.1.0...v1.2.0) (2026-07-22)
 
 
