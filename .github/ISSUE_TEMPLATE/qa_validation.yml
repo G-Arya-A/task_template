@@ -1,0 +1,242 @@
+name: "QV - QA Validation"
+description: "QA verification that an implementation satisfies the acceptance criteria"
+title: "[QV] "
+labels: ["state:test-plani", "type:validation"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## QA Validation Report
+
+        This issue documents formal QA verification of a completed implementation.
+        The implementation already exists — this is a **validation** artifact,
+        not a planning artifact.
+
+        Every field marked with a red asterisk is required.
+
+  - type: markdown
+    attributes:
+      value: "### 1. Reference"
+
+  - type: input
+    id: related-task
+    attributes:
+      label: "Related Task"
+      description: "The implementation issue being validated."
+      placeholder: "#42"
+    validations:
+      required: true
+
+  - type: input
+    id: related-pr
+    attributes:
+      label: "Related PR"
+      description: "The PR that implemented the change."
+      placeholder: "#128"
+    validations:
+      required: false
+
+  - type: input
+    id: qa-engineer
+    attributes:
+      label: "QA Engineer"
+      description: "Who performed this validation?"
+      placeholder: "@qa-username"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 2. Test Environment"
+
+  - type: input
+    id: build-version
+    attributes:
+      label: "Build Version"
+      description: "Exact build, tag, or commit SHA under test."
+      placeholder: "v2.1.0-rc.1 / main@a3f2c1b"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "Environment"
+      description: "Which environment was tested?"
+      options:
+        - "Development"
+        - "Staging"
+        - "Production (smoke)"
+        - "CI Pipeline"
+        - "Local (QA workstation)"
+    validations:
+      required: true
+
+  - type: input
+    id: test-date
+    attributes:
+      label: "Test Date"
+      description: "When was the validation executed?"
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 3. Test Results"
+
+  - type: textarea
+    id: test-cases
+    attributes:
+      label: "Test Cases"
+      description: "List of test cases executed, referencing the acceptance criteria from the related task."
+      placeholder: |
+        AC-1: User receives password reset email within 30 seconds → PASS
+        AC-2: Reset link expires after 15 minutes → PASS
+        AC-3: Error message shown if email not found → PASS
+        AC-4: Password respects existing policy (min 8 chars, 1 special) → PASS
+        AC-5: All existing auth tests continue to pass → PASS
+    validations:
+      required: true
+
+  - type: dropdown
+    id: pass-fail
+    attributes:
+      label: "Overall Result"
+      description: "Did the implementation satisfy all acceptance criteria?"
+      options:
+        - "PASS — All criteria met"
+        - "PASS — All critical criteria met, minor non-critical issues documented"
+        - "FAIL — One or more acceptance criteria not met"
+        - "BLOCKED — Cannot complete validation (environment down, missing dependency)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: failed-cases
+    attributes:
+      label: "Failed Cases"
+      description: "Detailed description of any failures. Include actual vs expected."
+      placeholder: |
+        - AC-4: Password policy not enforced
+          Expected: Password "Test1234" should be rejected (no special char)
+          Actual:   Password accepted, user created
+          Severity: S3 (workaround exists)
+        - AC-5: 2 of 12 existing auth tests fail
+          Tests: test_login_rate_limit, test_brute_force_detection
+          Root cause: New middleware interferes with rate limiter
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "### 4. Scope & Recommendation"
+
+  - type: dropdown
+    id: regression-needed
+    attributes:
+      label: "Regression Test Required?"
+      description: "Does this change require broader regression testing beyond the AC?"
+      options:
+        - "No — isolated change, full regression not needed"
+        - "Yes — smoke regression recommended (critical paths only)"
+        - "Yes — full regression required (touches core infrastructure)"
+        - "Uncertain — TL should decide"
+    validations:
+      required: true
+
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: "Recommendation"
+      description: "QA's formal recommendation based on the results above."
+      placeholder: |
+        APPROVED — All acceptance criteria pass. Minor UI alignment issue
+        documented in notes; does not block release.
+
+        OR
+
+        CONDITIONAL — Approved pending fix of AC-5 (regression in rate
+        limiter). The fix is straightforward; re-run only the auth test
+        suite, not full regression.
+
+        OR
+
+        REJECTED — AC-4 (password policy) and AC-5 (test regression) are
+        critical failures. Must be fixed and re-validated before release.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: approval
+    attributes:
+      label: "QA Approval"
+      description: "Formal sign-off decision."
+      options:
+        - "Approved — ready for release"
+        - "Approved with conditions — see recommendation"
+        - "Not approved — requires rework"
+    validations:
+      required: true
+
+  - type: input
+    id: approval-date
+    attributes:
+      label: "Approval Date"
+      description: "Date of QA sign-off."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "### 5. Additional Context"
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Test Notes"
+      description: "Observations, edge cases tested, environment quirks, known limitations."
+      placeholder: |
+        - Tested on staging (staging-42) with PostgreSQL 16
+        - Rate limit test required 3-minute wait (rate window)
+        - Safari browser shows rendering glitch on reset page — pre-existing, not introduced here
+        - Performance: reset flow completes in ~200ms (threshold: 500ms)
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 6. Submission Checklist
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Pre-submission Checklist"
+      options:
+        - label: "Build version and environment are documented"
+          required: true
+        - label: "All acceptance criteria from the related task were tested"
+          required: true
+        - label: "Each test case has a clear pass/fail result"
+          required: true
+        - label: "Failed cases include actual vs expected and severity"
+          required: false
+        - label: "Regression assessment is documented"
+          required: true
+        - label: "Recommendation and approval decision are stated"
+          required: true
+        - label: "Sensitive data (credentials, tokens, PII) removed from logs"
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Linking**: This QV issue is linked to the related task (#42).
+        Once approved, the related task transitions to Ready for Release.
+
+        **Lifecycle**: TEST PLANI (created) → TEST (execution) →
+        (if PASS) YAYINLANMIS | (if FAIL) REVIZYON on the related task.

@@ -1,0 +1,279 @@
+name: "CR - Change Request"
+description: "Request a requirement change after implementation has started"
+title: "[CR] "
+labels: ["state:analiz", "type:change", "priority:P3"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Change Request
+
+        Use this form when a requirement change is needed **after** implementation
+        has already started. This is not for code-review fixes (use Revision Request
+        for that) or for new feature ideas (use Feature Request).
+
+        A Change Request always links back to an active parent issue.
+
+  - type: markdown
+    attributes:
+      value: "### 1. Origin"
+
+  - type: input
+    id: original-issue
+    attributes:
+      label: "Original Issue"
+      description: "The active issue whose scope/requirements need to change."
+      placeholder: "#42"
+    validations:
+      required: true
+
+  - type: input
+    id: requester
+    attributes:
+      label: "Requested By"
+      description: "Who is requesting this change?"
+      placeholder: "@username or Name Surname"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: "Change Source"
+      description: "Where is this request originating?"
+      options:
+        - "Business / Product"
+        - "Stakeholder / Customer"
+        - "Legal / Compliance"
+        - "Technical Constraint Discovered"
+        - "Security Requirement"
+        - "Third-party Dependency Change"
+        - "Regulatory / Audit"
+        - "Other"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 2. Justification"
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: "Reason for Change"
+      description: "Why is this change necessary? What happened since the original requirement was written?"
+      placeholder: |
+        Since the original spec was approved, the payment gateway provider
+        deprecated their v1 API. The integration must be updated to v2 before
+        the deprecation deadline (2026-09-30).
+    validations:
+      required: true
+
+  - type: textarea
+    id: business-justification
+    attributes:
+      label: "Business Justification"
+      description: "What is the cost of NOT making this change? What is the expected benefit?"
+      placeholder: |
+        Cost of not changing: Payment processing stops on 2026-09-30 (revenue
+        impact ~$120k/day).
+
+        Benefit: Continued uninterrupted payment processing, v2 API provides
+        3x lower latency.
+
+        Trade-off: Delays feature X by approximately 2 weeks.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 3. Change Description"
+
+  - type: textarea
+    id: requested-change
+    attributes:
+      label: "Requested Change"
+      description: "Exactly what needs to change in the requirements, scope, or implementation?"
+      placeholder: |
+        - Replace all PaymentGatewayV1 client calls with PaymentGatewayV2
+        - Update request/response models to match v2 schema
+        - Remove the deprecated retry logic (v2 handles this natively)
+        - Update webhook signatures to v2 format
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 4. Impact"
+
+  - type: textarea
+    id: impact-analysis
+    attributes:
+      label: "Impact Analysis"
+      description: "What work already done will be affected? What breaks? What needs rework?"
+      placeholder: |
+        Completed work affected:
+        - payment/service.py (80% complete) — v1 client logic must be rewritten
+        - payment/schemas.py (done) — models must be updated
+        - tests/test_payment.py (60% complete) — test fixtures use v1 mocks
+
+        Completed work unaffected:
+        - auth/service.py — no dependency on payment gateway
+        - Frontend checkout flow — API contract is backward compatible
+
+        New risks introduced:
+        - Webhook signature verification changed — may affect incident response
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affected-modules
+    attributes:
+      label: "Affected Modules"
+      description: "Which modules require changes? Select all that apply."
+      options:
+        - label: "API"
+        - label: "Web (Frontend)"
+        - label: "Mobile"
+        - label: "Database / Migrations"
+        - label: "Auth / Security"
+        - label: "CI/CD / Pipelines"
+        - label: "Documentation"
+        - label: "Monitoring / Observability"
+        - label: "Infrastructure"
+        - label: "Third-party Integration"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 5. Estimation & Risk"
+
+  - type: dropdown
+    id: estimated-effort
+    attributes:
+      label: "Estimated Effort"
+      description: "Rough estimation — refine during planning."
+      options:
+        - "< 1 hour"
+        - "1 – 4 hours"
+        - "4 – 8 hours (1 day)"
+        - "2 – 3 days"
+        - "4 – 5 days (1 sprint)"
+        - "> 1 sprint (needs breakdown)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: "Risk Level"
+      description: "How risky is this change to deploy?"
+      options:
+        - "High (schema migration, data loss possible, breaking API change)"
+        - "Medium (new logic, covered by tests, no schema change)"
+        - "Low (config change, documentation, trivial fix)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: required-retesting
+    attributes:
+      label: "Required Retesting"
+      description: "Which existing tests or test areas must be re-run to validate the change?"
+      placeholder: |
+        - Full payment flow regression suite
+        - Webhook signature verification tests
+        - All existing auth tests (to confirm no regression)
+        - Manual smoke test on staging with real sandbox credentials
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 6. Approval"
+
+  - type: dropdown
+    id: approval-status
+    attributes:
+      label: "Approval Status"
+      description: "Current approval state of this change request."
+      options:
+        - "Pending — awaiting TL review"
+        - "Pending — awaiting UL review (cross-team impact)"
+        - "Approved — proceed with implementation"
+        - "Rejected — change will not be implemented"
+        - "Deferred — revisit in next release cycle"
+    validations:
+      required: true
+
+  - type: input
+    id: approved-by
+    attributes:
+      label: "Approved By"
+      description: "Who approved this change? Filled when status is Approved."
+      placeholder: "@tl-username"
+    validations:
+      required: false
+
+  - type: input
+    id: approval-date
+    attributes:
+      label: "Approval Date"
+      description: "Date of approval."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Additional Notes"
+      description: "Any other context: decisions made, alternatives considered, stakeholder comments."
+      placeholder: |
+        Alternatives considered:
+        1. Delay feature X by 2 weeks and switch to v2 — chosen (v1 deprecation is hard deadline)
+        2. Implement both v1 and v2 in parallel — rejected (too complex, no business value after deprecation)
+        3. Outsource payment module to third-party — rejected (cost exceeds benefit)
+
+        Stakeholder approval received via email from product@company.com on 2026-07-30.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 7. Submission Checklist
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Pre-submission Checklist"
+      options:
+        - label: "Original issue number is provided"
+          required: true
+        - label: "Reason for change is clearly documented"
+          required: true
+        - label: "Business justification includes cost of not changing"
+          required: true
+        - label: "Impact analysis covers all affected completed work"
+          required: true
+        - label: "Affected modules are identified"
+          required: true
+        - label: "Required retesting areas are documented"
+          required: true
+        - label: "Risk level is assessed"
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Linking**: This CR is automatically linked to the original issue.
+        An approval comment is required on the original issue before
+        implementation can proceed.
+
+        **Lifecycle**: ANALIZ → ONAYLI (if approved) → implementation in
+        the parent issue. If rejected, the parent issue continues with
+        its original scope.

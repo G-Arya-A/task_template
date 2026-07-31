@@ -1,0 +1,189 @@
+name: "FR - Feature Request"
+description: "Suggest a new feature or capability for the product"
+title: "[FR] "
+labels: ["state:analiz", "type:feature", "priority:P3"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        Use this form to propose a new feature. Please be specific about the
+        *problem* you are solving — not just the solution you have in mind.
+        Every field marked with a red asterisk is required.
+
+  - type: markdown
+    attributes:
+      value: "### 1. Context"
+
+  - type: textarea
+    id: business-context
+    attributes:
+      label: "Business Context"
+      description: "Why does this feature exist? What business value does it deliver?"
+      placeholder: |
+        Example:
+        - Customer request from Enterprise accounts (30% of revenue)
+        - Competitor X shipped this 2 quarters ago
+        - Reduces support tickets by estimated 200/month
+        - Required for SOC2 compliance (deadline: Q3)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: "Problem Statement"
+      description: "What specific problem or gap exists today? Who is affected and how?"
+      placeholder: |
+        As a <role>, I want to <capability> so that <benefit>.
+        OR
+        When <situation>, <persona> cannot <goal> because <obstacle>.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 2. Solution"
+
+  - type: textarea
+    id: expected-solution
+    attributes:
+      label: "Expected Solution"
+      description: "Describe the desired outcome at a high level. Focus on *what*, not *how*."
+      placeholder: |
+        Users can reset their password via an email link.
+        The dashboard shows weekly trend data for the last 90 days.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "Acceptance Criteria"
+      description: "Specific, testable conditions that must be met. One per line."
+      placeholder: |
+        - [ ] User receives password reset email within 30 seconds
+        - [ ] Reset link expires after 15 minutes
+        - [ ] Error message shown if email not found
+        - [ ] Password respects existing policy (min 8 chars, 1 special)
+        - [ ] All existing auth tests continue to pass
+      render: markdown
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 3. Triage"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      description: "Business urgency — how soon does this need to ship?"
+      options:
+        - "P1 - Critical (system down or customer blocking)"
+        - "P2 - High (major feature, current sprint)"
+        - "P3 - Medium (normal planned work)"
+        - "P4 - Low (nice to have, when bandwidth allows)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: "Risk"
+      description: "How risky is this change to deploy? Independent from priority."
+      options:
+        - "High (schema migration, breaking API, data loss possible)"
+        - "Medium (new feature with test coverage, no schema change)"
+        - "Low (cosmetic, config change, docs, no prod code)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affected-modules
+    attributes:
+      label: "Affected Modules"
+      description: "Which parts of the system will this change touch? Select all that apply."
+      options:
+        - label: "API"
+        - label: "Web (Frontend)"
+        - label: "Mobile"
+        - label: "Database / Migrations"
+        - label: "Auth / Security"
+        - label: "CI/CD"
+        - label: "Documentation"
+        - label: "Monitoring / Observability"
+        - label: "Infrastructure"
+        - label: "Third-party Integration"
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "Dependencies"
+      description: "Issues, PRs, or external work this feature depends on."
+      placeholder: |
+        - #42 – New permission system must ship first
+        - External: Payment gateway API contract (due next week, contact @vendor)
+        - Legal: Privacy review required before release
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "### 4. Planning"
+
+  - type: input
+    id: target-version
+    attributes:
+      label: "Target Version"
+      description: "Which release should this target? (e.g., v2.1.0)"
+      placeholder: "v2.1.0"
+    validations:
+      required: false
+
+  - type: input
+    id: communication-channel
+    attributes:
+      label: "Communication Channel"
+      description: "Where will this feature be discussed? Slack, meetings, issue comments."
+      placeholder: "Slack: #team-features, Weekly sync: Wed 14:00"
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Additional Notes"
+      description: "Any other context: wireframes, design mockups, prior art, competitive analysis."
+      placeholder: "Figma: link/to/prototype. Competitive analysis in attached PDF."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Pre-submission Checklist"
+      description: "Verify the following before submitting."
+      options:
+        - label: "Business context and problem statement are clearly defined"
+          required: true
+        - label: "Acceptance criteria are specific and testable"
+          required: true
+        - label: "Priority and risk have been assessed"
+          required: true
+        - label: "Affected modules are identified"
+          required: true
+        - label: "Dependencies are documented (if any)"
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **After submitting**: A Team Leader will review and set the appropriate
+        `state:*`, `team:*`, and `component:*` labels. The issue then enters
+        the workflow: BACKLOG → ANALYSIS → READY → DEVELOPMENT → ...
