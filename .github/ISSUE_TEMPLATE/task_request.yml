@@ -202,15 +202,21 @@ body:
       label: "Sorumlu Ekip"
       description: "Bu görev hangi ekip tarafından yapılmalıdır?"
       options:
-        - "Backend"
-        - "Frontend"
-        - "DevOps"
-        - "QA"
-        - "Dokümantasyon"
-        - "Tasarım"
-        - "Veri"
-        - "İş Analizi"
-        - "Genel"
+        - "PY"
+        - "AYG"
+        - "FYYG"
+        - "GSYG"
+        - "IMYG"
+        - "K2"
+        - "OYG"
+        - "PSYG"
+        - "SSYG"
+        - "SYG"
+        - "YMG"
+        - "YSYG"
+        - "YTO"
+        - "ST"
+        - "SSG-STAGY"
     validations:
       required: true
 
@@ -220,15 +226,6 @@ body:
       label: "Atanacak Kişi(ler)"
       description: "Görev kime atanacak? (Takım lideri onayı sonrası)"
       placeholder: "@kullanici1, @kullanici2"
-    validations:
-      required: false
-
-  - type: input
-    id: target_version
-    attributes:
-      label: "Hedef Sürüm"
-      description: "Bu görev hangi sürümde tamamlanmalı?"
-      placeholder: "v1.2.0"
     validations:
       required: false
 
