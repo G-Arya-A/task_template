@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/G-Arya-A/task_template/compare/v1.6.0...v1.7.0) (2026-08-01)
+
+
+### Features
+
+* label adlari Turkcelestirildi, workflow ve dokumanlardaki uyumsuzluklar giderildi ([a8398a4](https://github.com/G-Arya-A/task_template/commit/a8398a469604f0a74528bd606a56b9afb784f15e))
+
 # [1.6.0](https://github.com/G-Arya-A/task_template/compare/v1.5.0...v1.6.0) (2026-08-01)
 
 
