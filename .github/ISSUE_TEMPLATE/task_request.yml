@@ -106,16 +106,6 @@ body:
       required: false
 
   - type: textarea
-    id: scope_out
-    attributes:
-      label: "Kapsam Dışı"
-      description: "Bu iş kapsamında OLMAYAN neler var? (netleştirme amaçlı)"
-      placeholder: |
-        - Kapsam dışı: ...
-    validations:
-      required: false
-
-  - type: textarea
     id: spike_questions
     attributes:
       label: "Araştırma Soruları"
