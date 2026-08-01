@@ -194,7 +194,24 @@ body:
 
   - type: markdown
     attributes:
-      value: "### 6. Organizasyon"
+      value: "### 6. Test Planı"
+
+  - type: textarea
+    id: test_plan
+    attributes:
+      label: "Test Planı"
+      description: "Bu görevin başarılı olduğunu doğrulamak için uygulanacak test senaryoları"
+      placeholder: |
+        - [ ] T-1: ... -> Beklenen sonuç: ...
+        - [ ] T-2: ... -> Beklenen sonuç: ...
+        - [ ] T-3: ... -> Beklenen sonuç: ...
+      value: "- [ ] "
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 7. Organizasyon"
 
   - type: dropdown
     id: assigned_team
@@ -273,7 +290,7 @@ body:
 
   - type: markdown
     attributes:
-      value: "### 7. Notlar"
+      value: "### 8. Notlar"
 
   - type: textarea
     id: notes
@@ -293,6 +310,8 @@ body:
         - label: "İş gereksinimi tanımlı ve paydaşlar belirtildi"
           required: false
         - label: "Kabul kriterleri test edilebilir şekilde yazıldı"
+          required: false
+        - label: "Test planı kabul kriterlerini kapsıyor"
           required: false
         - label: "Riskler ve azaltma önlemleri listelendi"
           required: false
