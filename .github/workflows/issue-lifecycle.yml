@@ -19,9 +19,32 @@ jobs:
           script: |
             const issue = context.payload.issue;
             const title = issue.title || '';
+            const body = issue.body || '';
+
+            // Sorumlu Ekip secimine gore team:X etiketi ata
+            if (body) {
+              const teamMatch = body.match(/### Sorumlu Ekip\s*\r?\n\r?\n([^\r\n]+)/);
+              if (teamMatch) {
+                const teamValue = teamMatch[1].trim();
+                if (teamValue) {
+                  const teamLabel = `team:${teamValue}`;
+                  try {
+                    await github.rest.issues.addLabels({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      labels: [teamLabel]
+                    });
+                    console.log(`Ekibin etiketi eklendi: ${teamLabel}`);
+                  } catch (e) {
+                    console.log(`Etiket eklenemedi (mevcut olmayabilir): ${teamLabel}`);
+                  }
+                }
+              }
+            }
 
             // Yeni RR acildiginda ilgili issue'yu revizyona gecir
-            if (title.startsWith('[RR]') && issue.body) {
+            if (title.startsWith('[RR]') && body) {
               const match = issue.body.match(/#(\d+)/);
               if (match) {
                 const parentIssueNum = parseInt(match[1]);
