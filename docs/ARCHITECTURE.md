@@ -80,7 +80,7 @@ See Section 8 for full rationale.
 | Attribute | Value |
 |-----------|-------|
 | **Prefix** | `[TR]` |
-| **Default Labels** | `state:analiz`, `type:task`, `priority:P3` |
+| **Default Labels** | `state:analiz`, `type:görev`, `priority:P3` |
 | **Lifecycle** | Full lifecycle (analiz through yayinlanmis) |
 | **Required Fields** | Talep Sahibi, Kabul Kriterleri, Sorumlu Ekip |
 
@@ -91,7 +91,7 @@ See Section 8 for full rationale.
 | Attribute | Value |
 |-----------|-------|
 | **Prefix** | `[RR]` |
-| **Default Labels** | `state:revizyon`, `type:revision` |
+| **Default Labels** | `state:revizyon`, `type:revizyon` |
 | **Lifecycle** | Only opened when complex revision is needed |
 | **Required Fields** | Ilgili Issue, Revize Kategorisi, Mevcut/Istenen Durum |
 
@@ -102,11 +102,11 @@ See Section 8 for full rationale.
 | Attribute | Value |
 |-----------|-------|
 | **Prefix** | `[BR]` |
-| **Default Labels** | `state:analiz`, `type:bug`, `priority:P2` |
+| **Default Labels** | `state:analiz`, `type:hata`, `priority:P2` |
 | **Lifecycle** | Same as TR, tracks through to release |
 | **Required Fields** | Raporlayan, Tekrar Olusturma Adimlari, Beklenen/Gerceklesen |
 
-**Rationale**: Bug Reports are semantically distinct from Task Requests (they describe an existing problem, not a desired feature), but their lifecycle is identical. Using the same lifecycle ensures consistency. The `type:bug` label distinguishes them on the Kanban board.
+**Rationale**: Bug Reports are semantically distinct from Task Requests (they describe an existing problem, not a desired feature), but their lifecycle is identical. Using the same lifecycle ensures consistency. The `type:hata` label distinguishes them on the Kanban board.
 
 ### 3.4 Why Not More Issue Types?
 
@@ -482,9 +482,9 @@ Regressions are bugs introduced by a change that breaks previously working funct
 ### 9.2 Pre-Release Regression Flow
 
 1. Failing test → state:revizyon on the issue
-2. Developer fixes → state:basladi
+2. Developer fixes → state:başladı
 3. QA re-runs tests → state:test
-4. All pass → state:yayinlanmis
+4. All pass → state:yayınlanmış
 
 ### 9.3 Post-Release (Production) Regression Flow
 
@@ -583,9 +583,9 @@ v2.0.0     ← Breaking change
 
 | Commit Type | Version Bump | Example | Kanban Impact |
 |-------------|-------------|---------|---------------|
-| `fix:` | Patch (0.0.X) | `fix(auth): handle null token` | Bug closes, state:yayinlanmis |
-| `feat:` | Minor (0.X.0) | `feat(api): add user endpoint` | Feature closes, state:yayinlanmis |
-| `BREAKING CHANGE:` | Major (X.0.0) | `feat!: redesign API` | Major milestone, state:yayinlanmis |
+| `fix:` | Patch (0.0.X) | `fix(auth): handle null token` | Bug closes, state:yayınlanmış |
+| `feat:` | Minor (0.X.0) | `feat(api): add user endpoint` | Feature closes, state:yayınlanmış |
+| `BREAKING CHANGE:` | Major (X.0.0) | `feat!: redesign API` | Major milestone, state:yayınlanmış |
 | `docs:` | None | `docs: update README` | No release needed |
 | `chore:` | None | `chore: update deps` | No release needed |
 | `refactor:` | None | `refactor: extract service` | No release needed |
@@ -596,8 +596,8 @@ Each release creates a `version:vX.Y.Z` label and auto-applies it to issues that
 
 ```
 Issue #1 gets:
-  - state:yayinlanmis
-  - type:task
+  - state:yayınlanmış
+  - type:görev
   - version:v1.0.0   ← auto-assigned
 ```
 
@@ -685,13 +685,13 @@ Management → Budget/resource allocation, strategic decisions
 | Column | State Labels Included | WIP Limit | Automation |
 |--------|----------------------|-----------|------------|
 | **Backlog** | `state:analiz` | None | Auto: new issue |
-| **Approved** | `state:onayli` | None | Manual: TL |
-| **In Progress** | `state:baslamadi`, `state:basladi` | 3 per person | Auto: label change |
+| **Approved** | `state:onaylı` | None | Manual: TL |
+| **In Progress** | `state:başlamadı`, `state:başladı` | 3 per person | Auto: label change |
 | **Review** | `state:kod-gozden-gecirme` | 5 per team | Auto: PR opened |
 | **Test Plan** | `state:test-plani` | 3 per team | Auto: PR merged |
 | **Testing** | `state:test` | 3 per QA | Auto: label change |
 | **Revision** | `state:revizyon` | None | Auto: label change |
-| **Done** | `state:yayinlanmis` | None | Auto: release tag |
+| **Done** | `state:yayınlanmış` | None | Auto: release tag |
 
 ### 13.2 Board Views
 
@@ -701,7 +701,7 @@ Management → Budget/resource allocation, strategic decisions
 | **My Issues** | `assignee:@me` | Personal task list |
 | **Priority View** | `priority:P1` + `state:*` | Emergency items |
 | **Release View** | `version:v*` | Release tracking |
-| **QA View** | `team:qa` or `state:test*` | QA workload |
+| **QA View** | `type:doğrulama` or `state:test*` | QA workload |
 
 ### 13.3 Why Column-Based Labels?
 
@@ -723,10 +723,10 @@ Management → Budget/resource allocation, strategic decisions
 |------|---------|--------|--------|
 | **A1** | New issue created | Add default labels based on template selected | Consistency |
 | **A2** | RR issue opened | Set parent issue to `state:revizyon` + comment | Auto-linking |
-| **A3** | RR issue closed | Set parent issue to `state:basladi` + comment | Auto-restore |
+| **A3** | RR issue closed | Set parent issue to `state:başladı` + comment | Auto-restore |
 | **A4** | PR opened (linked to issue) | Set issue to `state:kod-gozden-gecirme` + link PR | Hard gate |
 | **A5** | PR merged to develop | Auto-close issue if `Closes #N` keyword used | Traceability |
-| **A6** | `state:onayli` label added | Notify assignee + add to sprint | Visibility |
+| **A6** | `state:onaylı` label added | Notify assignee + add to sprint | Visibility |
 | **A7** | `state:test` + CI pass | Comment: "Test passed" | Feedback loop |
 | **A8** | `state:test` + CI fail | Comment: "Test failed" | Feedback loop |
 | **A9** | Push to main | Trigger Semantic Release | Automation |
@@ -761,7 +761,7 @@ Management → Budget/resource allocation, strategic decisions
 | **RR** | Revision Request - A complex scope change requiring a new issue |
 | **BR** | Bug Report - A problem report following the same lifecycle as TR |
 | **AC** | Acceptance Criteria - Conditions that must be met to close an issue |
-| **WIP** | Work In Progress - Active development in state:basladi |
+| **WIP** | Work In Progress - Active development in state:başladı |
 | **CR** | Code Review - Peer review of a pull request |
 | **TL** | Team Leader - Approves and assigns work items |
 | **UL** | Unit Leader - Responsible for unit-level decisions |
@@ -798,7 +798,7 @@ states:
 
   - id: onayli
     name: "Onaylı"
-    label: "state:onayli"
+    label: "state:onaylı"
     transitions_to: [atanmis]
 
   - id: atanmis
@@ -808,12 +808,12 @@ states:
 
   - id: baslamadi
     name: "Başlamadı"
-    label: "state:baslamadi"
+    label: "state:başlamadı"
     transitions_to: [basladi, atanmis]
 
   - id: basladi
     name: "Başladı"
-    label: "state:basladi"
+    label: "state:başladı"
     transitions_to: [kod-gozden-gecirme, revizyon]
 
   - id: kod-gozden-gecirme
@@ -838,7 +838,7 @@ states:
 
   - id: yayinlanmis
     name: "Yayınlanmış"
-    label: "state:yayinlanmis"
+    label: "state:yayınlanmış"
     transitions_to: [revizyon]  # Only for regression
 ```
 

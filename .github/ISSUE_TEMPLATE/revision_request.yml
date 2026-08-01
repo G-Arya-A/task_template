@@ -1,7 +1,7 @@
 name: "RR - Revision Request (Revizyon Talebi)"
 description: "Mevcut bir görevin revize edilmesi için talep oluşturun (yeni issue açmadan)"
 title: "[RR] "
-labels: ["state:revizyon", "type:revision"]
+labels: ["state:revizyon", "type:revizyon"]
 assignees: []
 body:
   - type: markdown
@@ -164,5 +164,5 @@ body:
         ---
         **Revizyon Akışı**:
         REVİZYON → İlgili kişiye atanır → Değişiklikler yapılır → KOD GÖZDEN GEÇİRME → TEST → YAYIMLANMIŞ
-        
+
         **Not**: Revizyon tamamlandığında ilgili issue'nun durumu otomatik olarak güncellenir.

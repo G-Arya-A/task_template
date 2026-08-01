@@ -1,7 +1,7 @@
 name: "BR - Bug Report (Hata Raporu)"
 description: "Yeni bir hata raporu oluşturun"
 title: "[BR] "
-labels: ["state:analiz", "type:bug", "priority:P2"]
+labels: ["state:analiz", "type:hata", "priority:P2"]
 assignees: []
 body:
   - type: markdown

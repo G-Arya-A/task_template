@@ -47,10 +47,10 @@ jobs:
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: parentIssueNum,
-                    body: `🔄 **Revizyon baslatildi**\n\nRevizyon talebi: #${context.issue.number}\n\nDurum: state:revizyon`
+                    body: `🔄 **Revizyon başlatıldı**\n\nRevizyon talebi: #${context.issue.number}\n\nDurum: state:revizyon`
                   });
 
-                  console.log(`Issue #${parentIssueNum} state:revizyon olarak guncellendi`);
+                  console.log(`Issue #${parentIssueNum} state:revizyon olarak güncellendi`);
                 } catch (e) {
                   console.log(`Ilgili issue bulunamadi: #${parentIssueNum}`);
                 }
@@ -83,7 +83,7 @@ jobs:
 
                   const parentLabels = parent.data.labels.map(l => l.name);
                   const newLabels = parentLabels.filter(l => !l.startsWith('state:'));
-                  newLabels.push('state:basladi');
+                  newLabels.push('state:başladı');
 
                   await github.rest.issues.update({
                     owner: context.repo.owner,
@@ -96,10 +96,10 @@ jobs:
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: parentIssueNum,
-                    body: `✅ **Revizyon tamamlandi**\n\nRevizyon talebi kapatildi: #${context.issue.number}\n\nDurum: state:revizyon → state:basladi`
+                    body: `✅ **Revizyon tamamlandı**\n\nRevizyon talebi kapatıldı: #${context.issue.number}\n\nDurum: state:revizyon → state:başladı`
                   });
 
-                  console.log(`Issue #${parentIssueNum} state:basladi olarak guncellendi`);
+                  console.log(`Issue #${parentIssueNum} state:başladı olarak güncellendi`);
                 } catch (e) {
                   console.log(`Ilgili issue bulunamadi: #${parentIssueNum}`);
                 }
@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     if: >
       github.event.action == 'labeled' &&
-      github.event.label.name == 'state:onayli'
+      github.event.label.name == 'state:onaylı'
     steps:
       - name: Notify Approval
         uses: actions/github-script@v7
@@ -122,7 +122,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue.number,
-              body: '✅ **Talep onaylandi**\n\nBir sonraki adim: state:atanmis etiketi eklenecek ve gorev ilgili kisiye atanacaktir.'
+              body: '✅ **Talep onaylandı**\n\nBir sonraki adım: state:atanmış etiketi eklenecek ve görev ilgili kişiye atanacaktır.'
             });
 
   on-test-result:
@@ -130,7 +130,7 @@ jobs:
     runs-on: ubuntu-latest
     if: >
       github.event.action == 'labeled' &&
-      (github.event.label.name == 'event:test-passed' || github.event.label.name == 'event:test-failed')
+      (github.event.label.name == 'event:test-geçti' || github.event.label.name == 'event:test-kaldı')
     steps:
       - name: Handle Test Result
         uses: actions/github-script@v7
@@ -139,18 +139,18 @@ jobs:
             const issue = context.payload.issue;
             const label = github.event.label.name;
 
-            if (label === 'event:test-passed') {
+            if (label === 'event:test-geçti') {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                body: '✅ **Testler basarili**\n\nCI pipeline basariyla tamamlandi. YAYIMLANMIS adimina gecilebilir.'
+                body: '✅ **Testler başarılı**\n\nCI pipeline başarıyla tamamlandı. YAYINLANMIŞ adımına geçilebilir.'
               });
             } else {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                body: '❌ **Testler basarisiz**\n\nTestlerde hata tespit edildi. Duzeltme icin state:revizyon etiketi eklenebilir.'
+                body: '❌ **Testler başarısız**\n\nTestlerde hata tespit edildi. Düzeltme için state:revizyon etiketi eklenebilir.'
               });
             }

@@ -1,7 +1,7 @@
 name: "QV - QA Doğrulama"
 description: "Uygulanan işin kabul kriterlerini sağladığının QA tarafından doğrulanması"
 title: "[QV] "
-labels: ["state:test-plani", "type:validation"]
+labels: ["state:test-plani", "type:doğrulama"]
 assignees: []
 body:
   - type: markdown

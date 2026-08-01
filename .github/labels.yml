@@ -40,37 +40,41 @@
   description: "Sürüm yayımlandı (Released)"
 
 # Tip Etiketleri (Type Labels)
-- name: "type:task"
+- name: "type:görev"
   color: "1d76db"
   description: "Görev talebi"
 
-- name: "type:bug"
+- name: "type:hata"
   color: "d73a4a"
   description: "Hata raporu"
 
-- name: "type:revision"
+- name: "type:revizyon"
   color: "e11d48"
   description: "Revizyon talebi"
 
-- name: "type:feature"
+- name: "type:özellik"
   color: "a2eeef"
   description: "Yeni özellik"
 
-- name: "type:enhancement"
+- name: "type:iyileştirme"
   color: "a2eeef"
   description: "İyileştirme"
 
-- name: "type:docs"
+- name: "type:doküman"
   color: "0075ca"
   description: "Doküman güncellemesi"
 
-- name: "type:tech-debt"
+- name: "type:teknik-borç"
   color: "d4c5f9"
   description: "Teknik borç"
 
-- name: "type:security"
+- name: "type:güvenlik"
   color: "ee0701"
   description: "Güvenlik ile ilgili"
+
+- name: "type:doğrulama"
+  color: "bfdadc"
+  description: "QA doğrulama (test) raporu"
 
 # Öncelik Etiketleri (Priority Labels)
 - name: "priority:P1"
@@ -90,75 +94,115 @@
   description: "Düşük - İyileştirme, fırsat olduğunda"
 
 # Revizyon Kategorisi Etiketleri
-- name: "rev:document"
+- name: "rev:doküman"
   color: "c2e0c6"
   description: "Doküman revizyonu"
 
-- name: "rev:debug"
+- name: "rev:hata-düzeltme"
   color: "f9d0c4"
   description: "Hata düzeltme revizyonu"
 
-- name: "rev:enhancement"
+- name: "rev:iyileştirme"
   color: "bfdadc"
   description: "İyileştirme revizyonu"
 
-- name: "rev:refactoring"
+- name: "rev:yeniden-yapılanma"
   color: "d4c5f9"
-  description: "Yeniden yapılanma revizyonu"
+  description: "Yeniden yapılanma (refactor) revizyonu"
 
-- name: "rev:requirement"
+- name: "rev:gereksinim"
   color: "fef2c0"
   description: "Gereksinim değişikliği"
 
-- name: "rev:performance"
+- name: "rev:performans"
   color: "c2e0c6"
   description: "Performans optimizasyonu"
 
-- name: "rev:security"
+- name: "rev:güvenlik"
   color: "ee0701"
   description: "Güvenlik düzeltmesi"
 
 # Olay Etiketleri (Event Labels)
-- name: "event:request-approved"
+- name: "event:talep-onaylandı"
   color: "0e8a16"
   description: "Talep onaylandı"
 
-- name: "event:test-passed"
+- name: "event:test-geçti"
   color: "0e8a16"
   description: "Testler başarılı"
 
-- name: "event:test-failed"
+- name: "event:test-kaldı"
   color: "b60205"
   description: "Testler başarısız"
 
-- name: "event:version-released"
+- name: "event:sürüm-yayınlandı"
   color: "0075ca"
   description: "Sürüm yayımlandı"
 
-- name: "event:revision-requested"
+- name: "event:revizyon-istendi"
   color: "e11d48"
   description: "Revizyon istendi"
 
-# Sprint/Ekip Etiketleri
-- name: "team:backend"
+# Ekip Etiketleri (Team Labels)
+- name: "team:PY"
   color: "1d76db"
-  description: "Backend ekibi"
+  description: "PY ekibi"
 
-- name: "team:frontend"
-  color: "5e6bce"
-  description: "Frontend ekibi"
+- name: "team:AYG"
+  color: "1d76db"
+  description: "AYG ekibi"
 
-- name: "team:devops"
-  color: "006b75"
-  description: "DevOps ekibi"
+- name: "team:FYYG"
+  color: "1d76db"
+  description: "FYYG ekibi"
 
-- name: "team:qa"
-  color: "bfdadc"
-  description: "QA ekibi"
+- name: "team:GSYG"
+  color: "1d76db"
+  description: "GSYG ekibi"
 
-- name: "team:docs"
-  color: "0075ca"
-  description: "Dokümantasyon ekibi"
+- name: "team:IMYG"
+  color: "1d76db"
+  description: "IMYG ekibi"
+
+- name: "team:K2"
+  color: "1d76db"
+  description: "K2 ekibi"
+
+- name: "team:OYG"
+  color: "1d76db"
+  description: "OYG ekibi"
+
+- name: "team:PSYG"
+  color: "1d76db"
+  description: "PSYG ekibi"
+
+- name: "team:SSYG"
+  color: "1d76db"
+  description: "SSYG ekibi"
+
+- name: "team:SYG"
+  color: "1d76db"
+  description: "SYG ekibi"
+
+- name: "team:YMG"
+  color: "1d76db"
+  description: "YMG ekibi"
+
+- name: "team:YSYG"
+  color: "1d76db"
+  description: "YSYG ekibi"
+
+- name: "team:YTO"
+  color: "1d76db"
+  description: "YTO ekibi"
+
+- name: "team:ST"
+  color: "1d76db"
+  description: "ST ekibi"
+
+- name: "team:SSG-STAGY"
+  color: "1d76db"
+  description: "SSG-STAGY ekibi"
 
 # Doküman Kategorisi Etiketleri
 - name: "doc:gelen"

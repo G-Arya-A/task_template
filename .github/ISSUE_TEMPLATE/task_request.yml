@@ -1,7 +1,7 @@
 name: "TR - Görev Talebi (Ticket)"
 description: "Yeni görev talebi oluştur (özellik, hata, refactor, araştırma, risk azaltma, iş gereksinimi, soru)"
 title: "[TR] "
-labels: ["state:analiz", "type:task", "priority:P3"]
+labels: ["state:analiz", "type:görev", "priority:P3"]
 assignees: []
 body:
   - type: markdown
