@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/G-Arya-A/task_template/compare/v1.4.0...v1.5.0) (2026-08-01)
+
+
+### Features
+
+* sorumlu ekip listesi guncellendi, hedef surum kaldirildi ([c0e52c9](https://github.com/G-Arya-A/task_template/commit/c0e52c9479d433116e1feb493585389d0ade8310))
+
 # [1.4.0](https://github.com/G-Arya-A/task_template/compare/v1.3.0...v1.4.0) (2026-08-01)
 
 
