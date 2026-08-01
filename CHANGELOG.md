@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/G-Arya-A/task_template/compare/v1.3.0...v1.4.0) (2026-08-01)
+
+
+### Features
+
+* TR kurumsal ticket formuna donusturuldu, QV Turkce'ye cevrildi ([3367a41](https://github.com/G-Arya-A/task_template/commit/3367a410772bd904e8ba091b75e1d84ffa1ec30b))
+
 # [1.3.0](https://github.com/G-Arya-A/task_template/compare/v1.2.0...v1.3.0) (2026-07-31)
 
 
