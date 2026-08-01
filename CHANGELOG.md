@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/G-Arya-A/task_template/compare/v1.5.0...v1.6.0) (2026-08-01)
+
+
+### Features
+
+* TR formuna test plani bolumu eklendi ([cb369c7](https://github.com/G-Arya-A/task_template/commit/cb369c7fd5a3fa94964cee230251416cd6024052))
+
 # [1.5.0](https://github.com/G-Arya-A/task_template/compare/v1.4.0...v1.5.0) (2026-08-01)
 
 
