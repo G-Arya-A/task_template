@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/G-Arya-A/task_template/compare/v1.8.1...v1.9.0) (2026-08-01)
+
+
+### Features
+
+* sorumlu ekip secimine gore otomatik team etiketi atanir ([d5c07e8](https://github.com/G-Arya-A/task_template/commit/d5c07e8986b5f0d8152ad5ad016efc23826aecfd))
+
 ## [1.8.1](https://github.com/G-Arya-A/task_template/compare/v1.8.0...v1.8.1) (2026-08-01)
 
 
