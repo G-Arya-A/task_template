@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/G-Arya-A/task_template/compare/v1.7.0...v1.8.0) (2026-08-01)
+
+
+### Features
+
+* template'ler tamamen Turkce'ye cevrildi ([824aeb5](https://github.com/G-Arya-A/task_template/commit/824aeb591b972dc6b47789a2d56eda175f447bc1))
+
 # [1.7.0](https://github.com/G-Arya-A/task_template/compare/v1.6.0...v1.7.0) (2026-08-01)
 
 
