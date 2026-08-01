@@ -78,7 +78,7 @@ body:
     attributes:
       label: "Test Tarihi"
       description: "Doğrulama ne zaman yapıldı?"
-      placeholder: "GG-AA-YYYY"
+      placeholder: "GG/AA/YYYY"
     validations:
       required: true
 
@@ -176,7 +176,7 @@ body:
     attributes:
       label: "Onay Tarihi"
       description: "QA onayının tarihi."
-      placeholder: "GG-AA-YYYY"
+      placeholder: "GG/AA/YYYY"
     validations:
       required: false
 

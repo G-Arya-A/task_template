@@ -238,7 +238,7 @@ body:
     attributes:
       label: "Son Tarih"
       description: "Bu görevin bitiş tarihi nedir?"
-      placeholder: "YYYY-MM-DD"
+      placeholder: "GG/AA/YYYY"
     validations:
       required: false
 
