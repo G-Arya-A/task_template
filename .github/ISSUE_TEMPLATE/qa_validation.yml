@@ -1,5 +1,5 @@
-name: "QV - QA Validation"
-description: "QA verification that an implementation satisfies the acceptance criteria"
+name: "QV - QA Doğrulama"
+description: "Uygulanan işin kabul kriterlerini sağladığının QA tarafından doğrulanması"
 title: "[QV] "
 labels: ["state:test-plani", "type:validation"]
 assignees: []
@@ -7,24 +7,23 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## QA Validation Report
+        ## QA Doğrulama Raporu
 
-        This issue documents formal QA verification of a completed implementation.
-        The implementation already exists — this is a **validation** artifact,
-        not a planning artifact. The test plan lives in the related task (TR),
-        so it is not repeated here.
+        Bu issue, tamamlanmış bir işin resmi QA doğrulamasını belgeler.
+        Uygulama zaten mevcuttur — bu bir **doğrulama** kaydıdır, planlama kaydı değildir.
+        Test planı ilgili görevde (TR) yer alır, burada tekrar edilmez.
 
-        Every field marked with a red asterisk is required.
+        Kırmızı yıldız işaretli her alan zorunludur.
 
   - type: markdown
     attributes:
-      value: "### 1. Reference"
+      value: "### 1. Referanslar"
 
   - type: input
     id: related-task
     attributes:
-      label: "Related Task"
-      description: "The implementation issue being validated."
+      label: "İlgili Görev (TR)"
+      description: "Doğrulanan uygulamanın yer aldığı görev."
       placeholder: "#42"
     validations:
       required: true
@@ -32,8 +31,8 @@ body:
   - type: input
     id: related-pr
     attributes:
-      label: "Related PR"
-      description: "The PR that implemented the change."
+      label: "İlgili PR"
+      description: "Değişikliği uygulayan pull request."
       placeholder: "#128"
     validations:
       required: false
@@ -41,21 +40,21 @@ body:
   - type: input
     id: qa-engineer
     attributes:
-      label: "QA Engineer"
-      description: "Who performed this validation?"
-      placeholder: "@qa-username"
+      label: "QA Mühendisi"
+      description: "Bu doğrulamayı kim gerçekleştirdi?"
+      placeholder: "@qa-kullanici"
     validations:
       required: true
 
   - type: markdown
     attributes:
-      value: "### 2. Test Environment"
+      value: "### 2. Test Ortamı"
 
   - type: input
     id: build-version
     attributes:
-      label: "Build Version"
-      description: "Exact build, tag, or commit SHA under test."
+      label: "Yapı (Build) Sürümü"
+      description: "Test edilen sürüm, etiket veya commit SHA."
       placeholder: "v2.1.0-rc.1 / main@a3f2c1b"
     validations:
       required: true
@@ -63,171 +62,170 @@ body:
   - type: dropdown
     id: environment
     attributes:
-      label: "Environment"
-      description: "Which environment was tested?"
+      label: "Ortam"
+      description: "Hangi ortamda test edildi?"
       options:
-        - "Development"
+        - "Geliştirme"
         - "Staging"
-        - "Production (smoke)"
+        - "Üretim (smoke)"
         - "CI Pipeline"
-        - "Local (QA workstation)"
+        - "Yerel (QA iş istasyonu)"
     validations:
       required: true
 
   - type: input
     id: test-date
     attributes:
-      label: "Test Date"
-      description: "When was the validation executed?"
-      placeholder: "YYYY-MM-DD"
+      label: "Test Tarihi"
+      description: "Doğrulama ne zaman yapıldı?"
+      placeholder: "GG-AA-YYYY"
     validations:
       required: true
 
   - type: markdown
     attributes:
-      value: "### 3. Test Results"
+      value: "### 3. Test Sonuçları"
 
   - type: markdown
     attributes:
       value: |
-        Each test case in the related task's test plan was executed. If any case
-        was skipped, state why.
+        İlgili görevdeki (TR) test planındaki her test senaryosu uygulandı.
+        Atlanan bir senaryo varsa gerekçesiyle birlikte belirtin.
 
   - type: dropdown
     id: pass-fail
     attributes:
-      label: "Overall Result"
-      description: "Did the implementation satisfy all acceptance criteria?"
+      label: "Genel Sonuç"
+      description: "Uygulama tüm kabul kriterlerini sağlıyor mu?"
       options:
-        - "PASS — All criteria met"
-        - "PASS — All critical criteria met, minor non-critical issues documented"
-        - "FAIL — One or more acceptance criteria not met"
-        - "BLOCKED — Cannot complete validation (environment down, missing dependency)"
+        - "GEÇTİ — Tüm kriterler sağlandı"
+        - "GEÇTİ — Kritik kriterler sağlandı, kritik olmayan küçük sorunlar belgelendi"
+        - "KALDI — Bir veya daha fazla kabul kriteri sağlanmadı"
+        - "ENGELLİ — Doğrulama tamamlanamıyor (ortam çöktü, bağımlılık eksik)"
     validations:
       required: true
 
   - type: textarea
     id: failed-cases
     attributes:
-      label: "Failed Cases"
-      description: "Detailed description of any failures. Include actual vs expected."
+      label: "Başarısız Senaryolar"
+      description: "Başarısızlıkların detayı. Gerçekleşen ve beklenen durumu belirtin."
       placeholder: |
-        - AC-4: Password policy not enforced
-          Expected: Password "Test1234" should be rejected (no special char)
-          Actual:   Password accepted, user created
-          Severity: S3 (workaround exists)
-        - AC-5: 2 of 12 existing auth tests fail
-          Tests: test_login_rate_limit, test_brute_force_detection
-          Root cause: New middleware interferes with rate limiter
+        - AC-4: Parola politikası uygulanmıyor
+          Beklenen: "Test1234" parolası reddedilmeli (özel karakter yok)
+          Gerçekleşen: Parola kabul edildi, kullanıcı oluşturuldu
+          Önem: S3 (geçici çözüm mevcut)
+        - AC-5: 12 mevcut auth testinden 2'si başarısız
+          Testler: test_login_rate_limit, test_brute_force_detection
+          Kök neden: Yeni middleware hız sınırlayıcıya karışıyor
     validations:
       required: false
 
   - type: markdown
     attributes:
-      value: "### 4. Scope & Recommendation"
+      value: "### 4. Kapsam ve Öneri"
 
   - type: dropdown
     id: regression-needed
     attributes:
-      label: "Regression Test Required?"
-      description: "Does this change require broader regression testing beyond the AC?"
+      label: "Regresyon Testi Gerekli mi?"
+      description: "Bu değişiklik kabul kriterlerinin ötesinde regresyon gerektiriyor mu?"
       options:
-        - "No — isolated change, full regression not needed"
-        - "Yes — smoke regression recommended (critical paths only)"
-        - "Yes — full regression required (touches core infrastructure)"
-        - "Uncertain — TL should decide"
+        - "Hayır — izole değişiklik, tam regresyon gerekmez"
+        - "Evet — smoke regresyon önerilir (kritik yollar yeterli)"
+        - "Evet — tam regresyon gereklidir (çekirdek altyapıya dokunuyor)"
+        - "Belirsiz — Takım lideri karar vermeli"
     validations:
       required: true
 
   - type: textarea
     id: recommendation
     attributes:
-      label: "Recommendation"
-      description: "QA's formal recommendation based on the results above."
+      label: "Öneri"
+      description: "Yukarıdaki sonuçlara dayalı QA'nın resmi önerisi."
       placeholder: |
-        APPROVED — All acceptance criteria pass. Minor UI alignment issue
-        documented in notes; does not block release.
+        ONAYLANDI — Tüm kabul kriterleri geçti. Notlarda belgelenen küçük arayüz
+        sorunu sürümü engellemiyor.
 
-        OR
+        VEYA
 
-        CONDITIONAL — Approved pending fix of AC-5 (regression in rate
-        limiter). The fix is straightforward; re-run only the auth test
-        suite, not full regression.
+        ŞARTLI — AC-5 düzeltmesi (hız sınırlayıcı regresyonu) sonrası onay.
+        Düzeltme basit; sadece auth test paketi çalıştırılmalı, tam regresyon değil.
 
-        OR
+        VEYA
 
-        REJECTED — AC-4 (password policy) and AC-5 (test regression) are
-        critical failures. Must be fixed and re-validated before release.
+        REDDEDİLDİ — AC-4 (parola politikası) ve AC-5 (test regresyonu) kritik
+        başarısızlıklar. Yayın öncesi düzeltilip yeniden doğrulanmalı.
     validations:
       required: true
 
   - type: dropdown
     id: approval
     attributes:
-      label: "QA Approval"
-      description: "Formal sign-off decision."
+      label: "QA Onayı"
+      description: "Resmi onay kararı."
       options:
-        - "Approved — ready for release"
-        - "Approved with conditions — see recommendation"
-        - "Not approved — requires rework"
+        - "Onaylandı — yayına hazır"
+        - "Şartlı onay — öneriye bakınız"
+        - "Onaylanmadı — yeniden çalışma gerektiriyor"
     validations:
       required: true
 
   - type: input
     id: approval-date
     attributes:
-      label: "Approval Date"
-      description: "Date of QA sign-off."
-      placeholder: "YYYY-MM-DD"
+      label: "Onay Tarihi"
+      description: "QA onayının tarihi."
+      placeholder: "GG-AA-YYYY"
     validations:
       required: false
 
   - type: markdown
     attributes:
-      value: "### 5. Additional Context"
+      value: "### 5. Ek Bağlam"
 
   - type: textarea
     id: notes
     attributes:
-      label: "Test Notes"
-      description: "Observations, edge cases tested, environment quirks, known limitations."
+      label: "Test Notları"
+      description: "Gözlemler, test edilen sınır durumları, ortam sorunları, bilinen kısıtlar."
       placeholder: |
-        - Tested on staging (staging-42) with PostgreSQL 16
-        - Rate limit test required 3-minute wait (rate window)
-        - Safari browser shows rendering glitch on reset page — pre-existing, not introduced here
-        - Performance: reset flow completes in ~200ms (threshold: 500ms)
+        - Staging ortamında (staging-42) PostgreSQL 16 ile test edildi
+        - Hız limiti testi 3 dakika beklemeyi gerektirdi (hız penceresi)
+        - Safari tarayıcısında sıfırlama sayfasında render sorunu görünüyor — önceden var, bu işte ortaya çıkmadı
+        - Performans: sıfırlama akışı ~200ms'de tamamlanıyor (eşik: 500ms)
     validations:
       required: false
 
   - type: markdown
     attributes:
       value: |
-        ### 6. Submission Checklist
+        ### 6. Gönderim Kontrol Listesi
 
   - type: checkboxes
     id: checklist
     attributes:
-      label: "Pre-submission Checklist"
+      label: "Gönderim Öncesi Kontrol Listesi"
       options:
-        - label: "Build version and environment are documented"
+        - label: "Yapı sürümü ve ortam belgelendi"
           required: true
-        - label: "All test cases from the related task's test plan were executed"
+        - label: "İlgili görevdeki test planının tüm senaryoları uygulandı"
           required: true
-        - label: "Failed cases include actual vs expected and severity"
+        - label: "Başarısız senaryolar için gerçekleşen/beklenen ve önem düzeyi belirtildi"
           required: false
-        - label: "Regression assessment is documented"
+        - label: "Regresyon değerlendirmesi belgelendi"
           required: true
-        - label: "Recommendation and approval decision are stated"
+        - label: "Öneri ve onay kararı belirtildi"
           required: true
-        - label: "Sensitive data (credentials, tokens, PII) removed from logs"
+        - label: "Gizli veriler (kimlik bilgileri, token, PII) loglardan kaldırıldı"
           required: true
 
   - type: markdown
     attributes:
       value: |
         ---
-        **Linking**: This QV issue is linked to the related task (#42).
-        Once approved, the related task transitions to Ready for Release.
+        **Bağlantı**: Bu QV issue'su ilgili göreve (#42) bağlanır.
+        Onaylandığında ilgili görev "Yayına Hazır" durumuna geçer.
 
-        **Lifecycle**: TEST PLANI (created) → TEST (execution) →
-        (if PASS) YAYINLANMIS | (if FAIL) REVIZYON on the related task.
+        **Yaşam Döngüsü**: TEST PLANI (oluşturuldu) → TEST (uygulama) →
+        (GEÇTİ ise) YAYINLANMIŞ | (KALDI ise) ilgili görevde REVİZYON.

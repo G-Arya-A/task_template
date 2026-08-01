@@ -1,5 +1,5 @@
-name: "TR - Task Request (Görev Talebi)"
-description: "Yeni bir görev talebi oluşturun"
+name: "TR - Görev Talebi (Ticket)"
+description: "Yeni görev talebi oluştur (özellik, hata, refactor, araştırma, risk azaltma, iş gereksinimi, soru)"
 title: "[TR] "
 labels: ["state:analiz", "type:task", "priority:P3"]
 assignees: []
@@ -10,6 +10,11 @@ body:
         ## Görev Talebi Formu
         Lütfen aşağıdaki alanları eksiksiz doldurunuz.
         Tüm zorunlu alanları doldurmadan talep göndermeyiniz.
+        **Türüne göre** alanlar değişir; size uymayan alanları "—" ile işaretleyin.
+
+  - type: markdown
+    attributes:
+      value: "### 1. Temel Bilgiler"
 
   - type: input
     id: requester
@@ -26,12 +31,16 @@ body:
       label: "Talep Türü"
       description: "Bu talebin türü nedir?"
       options:
-        - "Yeni Özellik (Feature)"
-        - "Hata Düzeltme (Bug Fix)"
-        - "İyileştirme (Enhancement)"
-        - "Teknik Borç (Tech Debt)"
-        - "Doküman Güncelleme"
+        - "Feature - Yeni Özellik"
+        - "Bug - Hata Düzeltme"
+        - "Refactor - Kod/Yapı Yeniden Düzenleme"
+        - "Spike - Araştırma/Keşif (zaman kutusu)"
+        - "Risk Mitigation - Risk Azaltma"
+        - "Business Requirement - İş Gereksinimi"
+        - "Question - Soru / Açıklama"
+        - "Tech Debt - Teknik Borç"
         - "Altyapı Değişikliği"
+        - "Doküman Güncelleme"
         - "Diğer"
     validations:
       required: true
@@ -49,26 +58,143 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: description
+  - type: markdown
     attributes:
-      label: "Açıklama"
-      description: "Talep edilen görevi detaylı açıklayın"
-      placeholder: "Ne yapılması isteniyor? Neden gerekli?"
+      value: "### 2. İş Gereksinimi (Business Requirement)"
+
+  - type: textarea
+    id: business_requirement
+    attributes:
+      label: "İş Gereksinimi"
+      description: "Bu işin arkasındaki iş ihtiyacı nedir? Hangi iş problemi çözülüyor?"
+      placeholder: |
+        İş problemi: ...
+        Hedeflenen iş sonucu: ...
+        İş paydaşları: ...
+        Kabul edilebilir iş etkisi/kısıtlar: ...
     validations:
       required: true
 
   - type: textarea
-    id: acceptance_criteria
+    id: business_value
     attributes:
-      label: "Kabul Kriterleri (Acceptance Criteria)"
-      description: "Bu görevin başarılı sayılması için gereken koşullar"
-      placeholder: |
-        - [ ] Koşul 1
-        - [ ] Koşul 2
-        - [ ] Koşul 3
+      label: "İş Değeri / Gerekçe"
+      description: "Bu iş neden yapılmalı? Ölçülebilir faydası nedir?"
+      placeholder: "Örn: maliyet azaltma, gelir artışı, risk azaltma, müşteri memnuniyeti..."
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: "### 3. Teknik Kapsam"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Teknik Açıklama"
+      description: "Yapılacak işin teknik detayı"
+      placeholder: "Ne yapılacak, hangi modüller, nasıl yapılacak?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope_in
+    attributes:
+      label: "Kapsam (In-Scope)"
+      description: "Bu iş kapsamında neler var?"
+      placeholder: |
+        - Modül 1: ...
+        - Modül 2: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: scope_out
+    attributes:
+      label: "Kapsam Dışı (Out-of-Scope)"
+      description: "Bu iş kapsamında OLMAYAN neler var? (netleştirme amaçlı)"
+      placeholder: |
+        - Kapsam dışı: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: spike_questions
+    attributes:
+      label: "Araştırma Soruları (Spike ise)"
+      description: "Spike türünde: zaman kutusu ne kadar? Hangi sorulara cevap aranacak?"
+      placeholder: |
+        Zaman kutusu: 2 gün
+        Soru 1: ...
+        Soru 2: ...
+        Çıktı: karar notu / prototip / karşılaştırma
+    validations:
+      required: false
+
+  - type: textarea
+    id: questions
+    attributes:
+      label: "Açık Sorular / Bekleyen Kararlar"
+      description: "Henüz netleşmemiş sorular, cevaplanması gereken noktalar"
+      placeholder: |
+        - Q1: ... -> cevap veren: @kişi
+        - Q2: ... -> cevap veren: @kişi
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "### 4. Risk & Geri Dönüş (Risk Mitigation)"
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: "Riskler ve Azaltma Önlemleri"
+      description: "Bu işin getirebileceği riskler ve bunları azaltma planı"
+      placeholder: |
+        - Risk 1: ... -> Olasılık/Y etkisi: ... -> Azaltma: ...
+        - Risk 2: ... -> Azaltma: ...
+    validations:
+      required: true
+
+  - type: input
+    id: original_version_backup
+    attributes:
+      label: "Orijinal Sürüm Yedeği"
+      description: "Değişiklik öncesi mevcut sürümün yedeği nerede tutuluyor? (tag, branch, dosya yolu)"
+      placeholder: "örn: v1.2.0 / backup/2026-08-01 / main@abc1234"
+    validations:
+      required: true
+
+  - type: textarea
+    id: rollback_plan
+    attributes:
+      label: "Geri Dönüş (Rollback) Planı"
+      description: "Sorun çıkarsa eski sürüme nasıl dönülür?"
+      placeholder: "Geri alma adımları: ..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "### 5. Kabul Kriterleri (Acceptance Criteria)"
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Kabul Kriterleri"
+      description: "Bu görevin başarılı sayılması için gereken koşullar (test edilebilir olmalı)"
+      placeholder: |
+        - [ ] AC-1: ...
+        - [ ] AC-2: ...
+        - [ ] AC-3: ...
+      value: "- [ ] "
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "### 6. Organizasyon"
 
   - type: dropdown
     id: assigned_team
@@ -83,6 +209,7 @@ body:
         - "Dokümantasyon"
         - "Tasarım"
         - "Veri"
+        - "İş Analizi"
         - "Genel"
     validations:
       required: true
@@ -147,12 +274,16 @@ body:
     validations:
       required: false
 
+  - type: markdown
+    attributes:
+      value: "### 7. Notlar"
+
   - type: textarea
     id: notes
     attributes:
       label: "Ek Notlar"
-      description: "Eklemek istediğiniz notlar"
-      placeholder: "Ek bilgiler, uyarılar, notlar..."
+      description: "Eklemek istediğiniz notlar, kısıtlar, varsayımlar"
+      placeholder: "Ek bilgiler, uyarılar, varsayımlar..."
     validations:
       required: false
 
@@ -162,9 +293,13 @@ body:
       label: "Kontrol Listesi (Checklist)"
       description: "Görev oluştururken kontrol edilmesi gerekenler"
       options:
-        - label: "Gereksinimler net ve anlaşılır"
+        - label: "İş gereksinimi tanımlı ve paydaşlar belirtildi"
           required: false
-        - label: "Kabul kriterleri tanımlı"
+        - label: "Kabul kriterleri test edilebilir şekilde yazıldı"
+          required: false
+        - label: "Riskler ve azaltma önlemleri listelendi"
+          required: false
+        - label: "Orijinal sürüm yedeği belirtildi"
           required: false
         - label: "Öncelik belirlendi"
           required: false
