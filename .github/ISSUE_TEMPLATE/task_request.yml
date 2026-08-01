@@ -38,9 +38,6 @@ body:
         - "Risk Mitigation - Risk Azaltma"
         - "Business Requirement - İş Gereksinimi"
         - "Question - Soru / Açıklama"
-        - "Tech Debt - Teknik Borç"
-        - "Altyapı Değişikliği"
-        - "Doküman Güncelleme"
         - "Diğer"
     validations:
       required: true
