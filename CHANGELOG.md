@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/G-Arya-A/task_template/compare/v1.8.0...v1.8.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* tarih formatlari GG/AA/YYYY olarak guncellendi ([c2f8b9b](https://github.com/G-Arya-A/task_template/commit/c2f8b9b57f598274af853f8099f89243078b8a54))
+
 # [1.8.0](https://github.com/G-Arya-A/task_template/compare/v1.7.0...v1.8.0) (2026-08-01)
 
 
