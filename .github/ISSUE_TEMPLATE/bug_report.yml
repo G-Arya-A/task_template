@@ -1,4 +1,4 @@
-name: "BR - Bug Report (Hata Raporu)"
+name: "BR - Hata Raporu"
 description: "Yeni bir hata raporu oluşturun"
 title: "[BR] "
 labels: ["state:analiz", "type:hata", "priority:P2"]

@@ -1,4 +1,4 @@
-name: "RR - Revision Request (Revizyon Talebi)"
+name: "RR - Revizyon Talebi"
 description: "Mevcut bir görevin revize edilmesi için talep oluşturun (yeni issue açmadan)"
 title: "[RR] "
 labels: ["state:revizyon", "type:revizyon"]
@@ -35,10 +35,10 @@ body:
       label: "Revize Kategorisi"
       description: "Bu revizyon hangi kategoride?"
       options:
-        - "Doküman (Document) - Doküman düzeltme/güncelleme"
-        - "Debug (Hata Düzeltme) - Tespit edilen hataları düzeltme"
-        - "Enhancement (İyileştirme) - Mevcut özelliğin geliştirilmesi"
-        - "Refactoring (Yeniden Yapılanma) - Kod yapısının iyileştirilmesi"
+        - "Doküman - Doküman düzeltme/güncelleme"
+        - "Hata Düzeltme - Tespit edilen hataları düzeltme"
+        - "İyileştirme - Mevcut özelliğin geliştirilmesi"
+        - "Yeniden Yapılanma - Kod yapısının iyileştirilmesi"
         - "Gereksinim Değişikliği - gereksinimlerde oluşan değişiklik"
         - "Performans - Performans optimizasyonu"
         - "Güvenlik - Güvenlik açığı düzeltmesi"

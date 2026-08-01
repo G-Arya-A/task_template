@@ -31,13 +31,13 @@ body:
       label: "Talep Türü"
       description: "Bu talebin türü nedir?"
       options:
-        - "Feature - Yeni Özellik"
-        - "Bug - Hata Düzeltme"
-        - "Refactor - Kod/Yapı Yeniden Düzenleme"
-        - "Spike - Araştırma/Keşif (zaman kutusu)"
-        - "Risk Mitigation - Risk Azaltma"
-        - "Business Requirement - İş Gereksinimi"
-        - "Question - Soru / Açıklama"
+        - "Yeni Özellik"
+        - "Hata Düzeltme"
+        - "Kod/Yapı Yeniden Düzenleme"
+        - "Araştırma/Keşif (zaman kutusu)"
+        - "Risk Azaltma"
+        - "İş Gereksinimi"
+        - "Soru / Açıklama"
         - "Diğer"
     validations:
       required: true
@@ -57,7 +57,7 @@ body:
 
   - type: markdown
     attributes:
-      value: "### 2. İş Gereksinimi (Business Requirement)"
+      value: "### 2. İş Gereksinimi"
 
   - type: textarea
     id: business_requirement
@@ -97,7 +97,7 @@ body:
   - type: textarea
     id: scope_in
     attributes:
-      label: "Kapsam (In-Scope)"
+      label: "Kapsam"
       description: "Bu iş kapsamında neler var?"
       placeholder: |
         - Modül 1: ...
@@ -108,7 +108,7 @@ body:
   - type: textarea
     id: scope_out
     attributes:
-      label: "Kapsam Dışı (Out-of-Scope)"
+      label: "Kapsam Dışı"
       description: "Bu iş kapsamında OLMAYAN neler var? (netleştirme amaçlı)"
       placeholder: |
         - Kapsam dışı: ...
@@ -118,8 +118,8 @@ body:
   - type: textarea
     id: spike_questions
     attributes:
-      label: "Araştırma Soruları (Spike ise)"
-      description: "Spike türünde: zaman kutusu ne kadar? Hangi sorulara cevap aranacak?"
+      label: "Araştırma Soruları"
+      description: "Araştırma/keşif türünde: zaman kutusu ne kadar? Hangi sorulara cevap aranacak?"
       placeholder: |
         Zaman kutusu: 2 gün
         Soru 1: ...
@@ -141,7 +141,7 @@ body:
 
   - type: markdown
     attributes:
-      value: "### 4. Risk & Geri Dönüş (Risk Mitigation)"
+      value: "### 4. Risk ve Geri Dönüş"
 
   - type: textarea
     id: risks
@@ -166,7 +166,7 @@ body:
   - type: textarea
     id: rollback_plan
     attributes:
-      label: "Geri Dönüş (Rollback) Planı"
+      label: "Geri Dönüş Planı"
       description: "Sorun çıkarsa eski sürüme nasıl dönülür?"
       placeholder: "Geri alma adımları: ..."
     validations:
@@ -174,7 +174,7 @@ body:
 
   - type: markdown
     attributes:
-      value: "### 5. Kabul Kriterleri (Acceptance Criteria)"
+      value: "### 5. Kabul Kriterleri"
 
   - type: textarea
     id: acceptance_criteria
