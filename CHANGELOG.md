@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/G-Arya-A/task_template/compare/v1.10.0...v1.10.1) (2026-08-07)
+
+
+### Bug Fixes
+
+* QV KALDI sonucu state:revizyon yerine state:basladiya gecirir ([047f8d0](https://github.com/G-Arya-A/task_template/commit/047f8d03fbb30ee6b6e9afd79d5feef24ff65bd2))
+
 # [1.10.0](https://github.com/G-Arya-A/task_template/compare/v1.9.0...v1.10.0) (2026-08-07)
 
 
