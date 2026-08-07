@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/G-Arya-A/task_template/compare/v1.9.0...v1.10.0) (2026-08-07)
+
+
+### Features
+
+* QV formunda sonuca gore otomatik etiket ve TR durumu guncellenir ([6af569d](https://github.com/G-Arya-A/task_template/commit/6af569d4924633fe8c6993b56c0a7fa50829a1fc))
+
 # [1.9.0](https://github.com/G-Arya-A/task_template/compare/v1.8.1...v1.9.0) (2026-08-01)
 
 
