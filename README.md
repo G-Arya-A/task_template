@@ -1,232 +1,269 @@
-# Yazılım Projesi - Kurumsal Şablon
+# Task Template — Kurumsal Görev Yönetim Şablonu
 
-> **Şirket İçi Standart Yazılım Yaşam Döngüsü Şablonu**
+> **Şirket içi standart yazılım yaşam döngüsü (SDLC) şablonu.**
+> Issue oluşturma → analiz → onay → geliştirme → test → yayımlama sürecini otomatikleştiren,
+> tamamen Türkçe çalışan bir GitHub yapılandırmasıdır.
 
-Bu şablon, şirket içerisindeki tüm yazılım projeleri için ortak bir yaşam döngüsü, issue yönetimi ve kalite kontrol süreci sunar.
+Bu repo; tüm projelerde ortak bir görev akışı, otomatik etiketleme ve sürüm yönetimi sağlar.
+Amacı: **herkesin aynı şekilde issue açması, aynı süreçten geçmesi ve sonucun otomatik izlenmesi.**
 
 ---
 
-## Proje Yapısı
+## 📌 Şu An Ne Durumdayız?
+
+| Başlık | Durum |
+|--------|-------|
+| Güncel sürüm | **v1.8.1** (2026-08-01) |
+| Issue template sayısı | **4** (TR, BR, RR, QV) |
+| Etiket (label) sayısı | **54** — GitHub'da birebir senkronize |
+| Workflow sayısı | **3** (CI, Issue Lifecycle, Release) |
+| Otomatik etiketleme | ✅ Çalışıyor (ekip seçiminden `team:X`) |
+| RR → parent issue otomasyonu | ✅ Çalışıyor |
+| Semantic Release | ✅ Çalışıyor |
+| Dil | ✅ Tamamen Türkçe |
+
+---
+
+## 🧩 Issue Template'leri
+
+GitHub'da **New Issue** tıklanınca şu 4 form görünür:
+
+### 1. TR — Görev Talebi (Ticket) `[TR]`
+**Varsayılan etiketler:** `state:analiz`, `type:görev`, `priority:P3`
+
+Tek görev formu — tüm iş türlerini kapsar. Form bölümleri:
+
+| # | Bölüm | Zorunlu |
+|---|-------|---------|
+| 1 | **Temel Bilgiler** — Talep Sahibi, Talep Türü, Öncelik | ✅ |
+| 2 | **İş Gereksinimi** — İş problemi, iş değeri/gerekçe | ✅ |
+| 3 | **Teknik Kapsam** — Teknik açıklama, kapsam, araştırma soruları, açık sorular | kısmi |
+| 4 | **Risk ve Geri Dönüş** — Riskler+azaltma, orijinal sürüm yedeği, geri dönüş planı | ✅ |
+| 5 | **Kabul Kriterleri** — test edilebilir AC listesi | ✅ |
+| 6 | **Test Planı** — uygulanacak test senaryoları (T-1, T-2...) | ✅ |
+| 7 | **Organizasyon** — Sorumlu Ekip, atanacak kişi, son tarih, bağımlılıklar | kısmi |
+| 8 | **Notlar** — ek notlar + kontrol listesi | ❌ |
+
+**Talep Türü seçenekleri:** Yeni Özellik · Hata Düzeltme · Kod/Yapı Yeniden Düzenleme · Araştırma/Keşif (zaman kutusu) · Risk Azaltma · İş Gereksinimi · Soru / Açıklama · Diğer
+
+**Sorumlu Ekip seçenekleri:** PY · AYG · FYYG · GSYG · IMYG · K2 · OYG · PSYG · SSYG · SYG · YMG · YSYG · YTO · ST · SSG-STAGY
+
+### 2. BR — Hata Raporu `[BR]`
+**Varsayılan etiketler:** `state:analiz`, `type:hata`, `priority:P2`
+
+Alanlar: Raporlayan · Hata Önemi (Kritik/Yüksek/Orta/Düşük) · Hata Açıklaması · Tekrar Oluşturma Adımları · Beklenen Davranış · Gerçekleşen Davranış · Ortam Bilgisi · Ekran Görüntüleri/Loglar · İletişim Kanalı · Kontrol Listesi
+
+### 3. RR — Revizyon Talebi `[RR]`
+**Varsayılan etiketler:** `state:revizyon`, `type:revizyon`
+
+> ⚠️ Bu form **yeni bir issue oluşturmaz** — mevcut issue'yu revize eder.
+> `İlgili Issue Numarası` alanındaki `#123` sayesinde otomasyon parent issue'yu günceller.
+
+Alanlar: İlgili Issue Numarası · Revizyon Talep Eden · Revize Kategorisi (Doküman/Hata Düzeltme/İyileştirme/Yeniden Yapılanma/Gereksinim/Performans/Güvenlik/Uyumluluk) · Revizyon Önemi · Revizyon Sebebi · Mevcut Durum (As-is) · İstenen Durum (To-be) · Revize Kabul Kriterleri · Revizyon Sorumlusu
+
+### 4. QV — QA Doğrulama `[QV]`
+**Varsayılan etiketler:** `state:test-plani`, `type:doğrulama`
+
+> Test planı TR içinde tutulur; QV **yalnızca sonucu doğrular**.
+
+Alanlar: İlgili Görev (TR) · İlgili PR · QA Mühendisi · Yapı Sürümü · Ortam (Geliştirme/Önizleme/Üretim/Sürekli Entegrasyon/Yerel) · Test Tarihi · Genel Sonuç (GEÇTİ/KALDI/ENGELLİ) · Başarısız Senaryolar · Regresyon Değerlendirmesi · Öneri · QA Onayı · Onay Tarihi · Test Notları
+
+> `config.yml` — boş issue açmayı kapatır; iletişim kanallarını bağlar.
+
+---
+
+## 🏷️ Etiket Sistemi (54 Etiket)
+
+Tüm etiketler `.github/labels.yml` içinde tanımlı ve GitHub'da **birebir senkronize**. Kategoriler:
+
+| Kategori | Örnekler | Amaç |
+|----------|----------|------|
+| **Durum** `state:*` | `state:analiz`, `state:onaylı`, `state:atanmış`, `state:başlamadı`, `state:başladı`, `state:kod-gözden-geçirme`, `state:test-plani`, `state:test`, `state:revizyon`, `state:yayınlanmış` | Yaşam döngüsü pozisyonu |
+| **Tip** `type:*` | `type:görev`, `type:hata`, `type:revizyon`, `type:özellik`, `type:iyileştirme`, `type:doküman`, `type:teknik-borç`, `type:güvenlik`, `type:doğrulama` | İşin türü |
+| **Öncelik** `priority:*` | `priority:P1` … `priority:P4` | Aciliyet |
+| **Revizyon** `rev:*` | `rev:doküman`, `rev:hata-düzeltme`, `rev:iyileştirme`, `rev:yeniden-yapılanma`, `rev:gereksinim`, `rev:performans`, `rev:güvenlik` | Revizyon kategorisi |
+| **Olay** `event:*` | `event:talep-onaylandı`, `event:test-geçti`, `event:test-kaldı`, `event:sürüm-yayınlandı`, `event:revizyon-istendi` | Otomasyon tetikleyicileri |
+| **Ekip** `team:*` | `team:PY`, `team:AYG`, `team:FYYG`, `team:GSYG`, `team:IMYG`, `team:K2`, `team:OYG`, `team:PSYG`, `team:SSYG`, `team:SYG`, `team:YMG`, `team:YSYG`, `team:YTO`, `team:ST`, `team:SSG-STAGY` | Sorumlu ekip |
+| **Doküman** `doc:*` | `doc:gelen`, `doc:girdi`, `doc:gönderilen`, `doc:revize` | Doküman yönü |
+
+**Kural:** Bir issue'da **yalnızca bir** `state:*` etiketi bulunmalıdır.
+
+Etiketler tek kaynaktan yönetilir. İki senkronizasyon yolu:
+1. `python scripts/setup_labels.py G-Arya-A/task_template` (PyGithub ile)
+2. GitHub API ile (bu repo kurulurken yapıldı)
+
+---
+
+## 🤖 Otomasyonlar (Workflow'lar)
+
+### 1. Issue Lifecycle Manager — `.github/workflows/issue-lifecycle.yml`
+
+| Job | Tetikleyici | Ne yapar? |
+|-----|-------------|-----------|
+| `auto-label` | Issue **açıldığında** | 🔹 Formdaki **Sorumlu Ekip** seçimini okuyup `team:X` etiketini otomatik atar 🔹 `[RR]` açıldıysa body'deki `#123` parent issue'sunu bulup `state:revizyon` yapar + yorum atar |
+| `on-rr-closed` | Issue **kapatıldığında** | `[RR]` kapandıysa parent issue'yu `state:başladı`'ya döndürür + yorum atar |
+| `on-approve` | `state:onaylı` **etiketi eklenince** | "Talep onaylandı" yorumu atar |
+| `on-test-result` | `event:test-geçti` / `event:test-kaldı` **etiketi eklenince** | Test sonucu yorumu atar |
+
+### 2. CI — `.github/workflows/ci.yml`
+`main`/`develop`'a push ve PR'da çalışır:
+- **Lint:** `ruff check` + `black --check` (src/, tests/)
+- **Test:** `pytest` — Python 3.10 / 3.11 / 3.12 matrisi, coverage
+- **Build:** `python -m build` + artifact yükleme
+
+### 3. Release — `.github/workflows/release.yml`
+`main`'e her push'ta **Semantic Release** çalıştırır:
+- Conventional commit'lere göre sürüm (patch/minor/major)
+- `CHANGELOG.md` günceller ve otomatik commit yapar
+- GitHub Release oluşturur
+
+---
+
+## 🔄 Issue Yaşam Döngüsü
+
+```
+ANALİZ → ONAYLI → ATANMIŞ → BAŞLAMADI → BAŞLADI
+                                              ↓
+                               KOD GÖZDEN GEÇİRME → TEST PLANI → TEST
+                                              ↓ (başarısız)
+                                             REVİZYON ───────────┐
+                                              ↓                   │
+                                     YAYIMLANMIŞ ←────────────────┘
+```
+
+**Durum nasıl ilerler?** `state:*` etiketi değiştirilerek. Otomasyon belirli geçişleri yapar:
+- RR açılması → parent issue `state:revizyon`
+- RR kapanması → parent issue `state:başladı`
+- `state:onaylı` eklenmesi → onay bildirimi
+- Test etiketi eklenmesi → sonuç bildirimi
+
+**Revizyon kuralı:** Yeni issue açmayın — mevcut issue'yu revize edin (RR formu ile).
+
+---
+
+## 📐 Commit & Branch Stratejisi
+
+**Commit mesajı — Conventional Commits:**
+
+| Commit | Sürüm etkisi | Örnek |
+|--------|--------------|-------|
+| `fix:` | Patch (1.0.0 → 1.0.1) | `fix: tarih formatı güncellendi` |
+| `feat:` | Minor (1.0.0 → 1.1.0) | `feat: ekip etiketi otomasyonu` |
+| `feat!:` / `BREAKING CHANGE:` | Major (1.0.0 → 2.0.0) | `feat!: API yeniden tasarlandı` |
+| `docs:` / `chore:` | Etkisiz | `docs: README güncellendi` |
+
+**Branch adları:**
+```
+feature/TASK-123-yeni-ozellik
+bugfix/TASK-456-hata-duzeltme
+hotfix/TASK-789-acil-duzeltme
+revision/TASK-100-doc-guncelleme
+```
+
+---
+
+## ✅ PR Kontrol Listesi
+
+`.github/PULL_REQUEST_TEMPLATE.md` her PR'da açılır:
+- PR özeti + ilgili issue linkleri (`Closes #__`)
+- Değişiklik türü seçimi
+- Kod gözden geçirme kontrol listesi (genel/fonksiyonellik/güvenlik/dokümantasyon)
+- Ekran görüntüleri
+- Testing onayları
+- Deploy notları (migration/env değişikliği vb.)
+- Review isteği (kod inceleyici / QA / TL)
+
+---
+
+## 🛡️ Kalite Kapıları
+
+- **Pre-commit hooks** (`.pre-commit-config.yaml`): trailing whitespace, EOF, YAML/JSON doğrulama, merge conflict, debug statement, black, ruff, mypy
+- **CI:** lint + test (3 Python sürümü) + build
+- **Kabul kriterleri** her issue'da test edilebilir şekilde zorunlu
+- **Test planı** her TR içinde zorunlu
+
+---
+
+## 📂 Proje Yapısı
 
 ```
 .
 ├── .github/
-│   ├── ISSUE_TEMPLATE/       # Issue şablonları
-│   │   ├── task_request.yml   # Görev talebi
-│   │   ├── revision_request.yml # Revizyon talebi
-│   │   ├── bug_report.yml     # Hata raporu
-│   │   └── config.yml         # Şablon yapılandırması
-│   ├── workflows/             # CI/CD otomasyonları
-│   │   ├── ci.yml             # Sürekli entegrasyon
-│   │   └── release.yml        # Sürüm yayımlama
-│   ├── CODEOWNERS             # Kod sahipliği tanımları
+│   ├── ISSUE_TEMPLATE/        # 4 issue formu + config.yml
+│   │   ├── task_request.yml    # TR — Görev Talebi
+│   │   ├── bug_report.yml      # BR — Hata Raporu
+│   │   ├── revision_request.yml # RR — Revizyon Talebi
+│   │   ├── qa_validation.yml   # QV — QA Doğrulama
+│   │   └── config.yml          # blank issue kapalı + iletişim linkleri
+│   ├── workflows/             # ci.yml · issue-lifecycle.yml · release.yml
 │   ├── PULL_REQUEST_TEMPLATE.md
-│   └── labels.yml             # Yaşam döngüsü etiketleri
-├── src/                       # Kaynak kodlar
-├── tests/                     # Test dosyaları
-├── docs/                      # Dokümantasyon
-│   ├── GLOSSARY.md            # Kısaltmalar ve terimler
-│   ├── LIFECYCLE.md           # Yaşam döngüsü akışı
-│   └── templates/             # Şirket içi şablonlar
+│   ├── CODEOWNERS
+│   └── labels.yml             # 54 etiketin tek kaynağı
+├── scripts/
+│   └── setup_labels.py        # Etiket senkronizasyon script'i
+├── docs/
+│   ├── ARCHITECTURE.md        # SDLC mimari dokümanı
+│   ├── LIFECYCLE.md           # Yaşam döngüsü rehberi
+│   ├── GLOSSARY.md            # Kısaltmalar
+│   ├── GITHUB_YUKLEME_REHBERI.md
+│   └── templates/             # CHECKLIST.md · USAGE.md
+├── src/                       # Kaynak kod (Python paketi)
+├── tests/                     # Birim testleri
+├── CHANGELOG.md               # Otomatik sürüm geçmişi
 ├── pyproject.toml
-├── requirements-dev.txt
+├── requirements*.txt
 ├── .pre-commit-config.yaml
-├── Dockerfile
-├── docker-compose.yml
-├── CONTRIBUTING.md
-├── LICENSE
+├── .releaserc.json            # Semantic Release yapılandırması
+├── Dockerfile / docker-compose.yml
 └── README.md
 ```
 
 ---
 
-## Kısaltmalar ve Anlamları (Glossary)
-
-| Kısaltma | Açıklama |
-|----------|----------|
-| **TR** | Task Request - Görev Talebi |
-| **RR** | Revision Request - Revizyon Talebi |
-| **BR** | Bug Report - Hata Raporu |
-| **AC** | Acceptance Criteria - Kabul Kriterleri |
-| **CL** | Control List - Kontrol Listesi |
-| **SME** | Subject Matter Expert - Konu Uzmanı |
-| **TL** | Team Lead - Takım Lideri |
-| **QA** | Quality Assurance - Kalite Güvence |
-| **CR** | Code Review - Kod Gözden Geçirme |
-| **CI** | Continuous Integration - Sürekli Entegrasyon |
-| **CD** | Continuous Deployment - Sürekli Dağıtım |
-| **PR** | Pull Request - Çekme İsteği |
-| **UR** | Unit Test - Birim Testi |
-| **IT** | Integration Test - Entegrasyon Testi |
-| **ST** | System Test - Sistem Testi |
-| **UAT** | User Acceptance Test - Kullanıcı Kabul Testi |
-| **REQ** | Requirement - Gereksinim |
-| **P1** | Öncelik Seviyesi 1 - Kritik |
-| **P2** | Öncelik Seviyesi 2 - Yüksek |
-| **P3** | Öncelik Seviyesi 3 - Orta |
-| **P4** | Öncelik Seviyesi 4 - Düşük |
-| **RSL** | Released - Yayımlanmış |
-| **REV** | Revision - Revizyon |
-| **WIP** | Work In Progress - Çalışma Devam Ediyor |
-
----
-
-## Yazılım Yaşam Döngüsü (Issue Lifecycle)
-
-### Durumlar (States)
-
-```
-┌─────────────┐
-│  ANALİZ     │ ← Yeni task talebi oluşturulur
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│  ONAYLI     │ ← Takım lideri tarafından onaylanır
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│  ATANMIŞ    │ ← İlgili kişiye/grupta assign edilir
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ BAŞLAMADI   │ ← Atanmış ama henüz başlanmamış
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│  BAŞLADI    │ ← Çalışma devam ediyor (WIP)
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│    KOD      │ ← Kod gözden geçirme aşamasında
-│ GÖZDEN      │
-│ GEÇİRME    │
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ TEST PLANI  │ ← Test senaryoları hazırlanıyor
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│    TEST     │ ← Testler çalışıyor
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│  REVİZYON   │ ← Değişiklik gerektiriyor (yeni issue açmadan)
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ YAYIMLANMIŞ │ ← Sürüm yayımlandı (RSL)
-└─────────────┘
-```
-
-### Olaylar (Events)
-
-| Event | Açıklama | Tetikleyici |
-|-------|----------|-------------|
-| `request_approved` | Talep onaylandı | TL onayı |
-| `test_passed` | Testler başarılı | CI/CD pipeline |
-| `test_failed` | Testler başarısız | CI/CD pipeline |
-| `version_released` | Sürüm yayımlandı | Semantic Release |
-| `revision_requested` | Revizyon istendi | CR / Test sonucu |
-| `assigned` | Kişilere atandı | TL tarafından |
-
-### Revizyon Akışı
-
-Revizyon durumunda **yeni issue açılmadan** mevcut issue revize edilir:
-
-1. Issue `REVİZYON` durumuna geçer
-2. Revizyon formu doldurulur:
-   - **Talep Sahibi**: Revizyonu kim istedi
-   - **Sebep**: Revizyon nedeni
-   - **Revize Kategorisi**: Doküman / Debug / Enhancement / Refactoring
-   - **Açıklama**: Detaylı değişiklik açıklaması
-3. İlgili kişiye assign edilir
-4. Değişiklikler yapılır
-5. Tekrar `KOD GÖZDEN GEÇİRME` aşamasına dönülür
-
----
-
-## Kabul Kriterleri (Acceptance Criteria)
-
-Başarılı sayılıması için gereken koşullar:
-
-### Zorunlu Koşullar
-- [ ] Tüm acceptance criteria karşılanmış olmalı
-- [ ] Kod gözden geçirme (CR) onayı alınmış olmalı
-- [ ] Birim testleri (UR) %80+ coverage ile geçmeli
-- [ ] Entegrasyon testleri (IT) başarılı olmalı
-- [ ] CI pipeline'ı yeşil olmalı
-- [ ] Documenter updated olmalı (gerekliyse)
-
-### Sorumluluk Alanları
-
-| Rol | Sorumluluk |
-|-----|-----------|
-| **Talep Sahibi** | Gereksinimleri tanımlamak, acceptance criteria belirlemek |
-| **Takım Lideri (TL)** | Task'ı onaylamak, kişilere atamak, öncelik belirlemek |
-| **Geliştirici** | Kodu yazmak, testleri oluşturmak, dokümantasyonu güncellemek |
-| **Kod Gözden Geçirici** | Kodu incelemek, geri bildirim vermek |
-| **QA** | Test senaryolarını oluşturmak, testleri çalıştırmak |
-| **Konu Uzmanı (SME)** | Alan bilgisi sağlamak, kabul testlerine katılmak |
-
----
-
-## İletişim Kanalları
-
-| Kanal | Amaç | Link |
-|-------|------|------|
-| **Genel Chat** | Günlük iletişim | `[TEAM_CHAT_LINK]` |
-| **Tech Chat** | Teknik tartışmalar | `[TECH_CHAT_LINK]` |
-| **Proje Kanalı** | Proje özelinde iletişim | `[PROJECT_CHANNEL_LINK]` |
-| **Acil Durum** | Kritik sorunlar | `[EMERGENCY_CHANNEL_LINK]` |
-
----
-
-## Doküman Kategorileri
-
-| Kategori | Açıklama |
-|----------|----------|
-| **Gelen** | Dışarıdan gelen dokümanlar, spekülatif dokümanlar |
-| **Girdi Yapılan** | Proje içerisine bilgi girdisi sağlayan dokümanlar |
-| **Gönderilen** | Dışarıya gönderilen dokümanlar |
-| **Revize** | Güncellenmiş/revizyonu yapılmış dokümanlar |
-
----
-
-## Versiyonlama
-
-Otomatik versiyonlama **Semantic Release** ile yapılır:
-
-| Commit Mesajı | Versiyon Etkisi | Örnek |
-|---------------|-----------------|-------|
-| `fix: ...` | Patch (1.0.0 → 1.0.1) | Hata düzeltmesi |
-| `feat: ...` | Minor (1.0.0 → 1.1.0) | Yeni özellik |
-| `feat!: ...` / `BREAKING CHANGE:` | Major (1.0.0 → 2.0.0) | Kırıcı değişiklik |
-| `docs: ...` | Versiyon etkilemez | Doküman güncellemesi |
-| `chore: ...` | Versiyon etkilemez | Bakım çalışmaları |
-
----
-
-## Hızlı Başlangıç
+## 🚀 Kurulum
 
 ```bash
-# 1. Depoyu klonlayın
-git clone https://github.com/[ORG]/yazılım_github_örnek.git
-cd yazılım_github_örnek
+# 1. Klonla
+git clone https://github.com/G-Arya-A/task_template.git
+cd task_template
 
-# 2. Ortamı kurun
+# 2. Ortamı kur
 python -m venv venv
-venv\Scripts\activate  # Windows
+venv\Scripts\activate        # Windows
 pip install -r requirements-dev.txt
 
-# 3. Pre-commit hook'larını kurun
+# 3. Pre-commit hook'larını kur
 pre-commit install
 
-# 4. Geliştirmeye başlayın
+# 4. (İlk seferde) etiketleri senkronize et
+python scripts/setup_labels.py G-Arya-A/task_template
 ```
 
 ---
 
-## License
+## 🧭 Hızlı Kullanım
+
+1. **Yeni iş mi var?** → New Issue → **TR** formunu doldur (ekibi seç → etiket otomatik atanır)
+2. **Hata mı bulundu?** → New Issue → **BR**
+3. **Onaylı iş revize mi olacak?** → New Issue → **RR** (ilgili issue numarasını ver)
+4. **İş test edilecek mi?** → New Issue → **QV**
+5. Durumu `state:*` etiketiyle ilerlet, geliştirme bitince PR aç, CI geçsin, sürüm otomatik olsun.
+
+---
+
+## 📚 Dokümanlar
+
+| Doküman | İçerik |
+|---------|--------|
+| `docs/ARCHITECTURE.md` | SDLC mimarisi, rol tanımları, otomasyon kataloğu |
+| `docs/LIFECYCLE.md` | Adım adım yaşam döngüsü ve etiket kuralları |
+| `docs/GLOSSARY.md` | Kısaltmalar sözlüğü |
+| `docs/templates/USAGE.md` | Şablon kullanım rehberi |
+| `docs/templates/CHECKLIST.md` | Kontrol listeleri |
+| `docs/GITHUB_YUKLEME_REHBERI.md` | Repo kurulum rehberi |
+
+---
+
+## 📄 Lisans
 
 Bu proje [MIT License](LICENSE) altında lisanslanmıştır.
