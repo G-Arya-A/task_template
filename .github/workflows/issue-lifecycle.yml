@@ -110,6 +110,46 @@ jobs:
               }
             }
 
+            // Yeni BR acildiginda ilgili task'a hata etiketi at ve revizyona gecir
+            if (title.startsWith('[BR]') && body) {
+              const taskMatch = body.match(/### İlgili Görev \(TR\)\s*\r?\n\r?\n#?(\d+)/);
+              if (taskMatch) {
+                const taskNum = parseInt(taskMatch[1]);
+                try {
+                  const task = await github.rest.issues.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: taskNum
+                  });
+
+                  const taskLabels = task.data.labels.map(l => l.name);
+                  const newTaskLabels = taskLabels.filter(l => !l.startsWith('state:'));
+                  if (!newTaskLabels.includes('type:hata')) {
+                    newTaskLabels.push('type:hata');
+                  }
+                  newTaskLabels.push('state:revizyon');
+
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: taskNum,
+                    labels: newTaskLabels
+                  });
+
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: taskNum,
+                    body: `🐞 **Hata raporu açıldı**\n\nHata raporu: #${issue.number}\n\nDurum: → state:revizyon`
+                  });
+
+                  console.log(`Task #${taskNum} type:hata + state:revizyon olarak guncellendi`);
+                } catch (e) {
+                  console.log(`Ilgili task bulunamadi: #${taskNum}`);
+                }
+              }
+            }
+
             // Yeni RR acildiginda ilgili issue'yu revizyona gecir
             if (title.startsWith('[RR]') && body) {
               const match = issue.body.match(/#(\d+)/);
