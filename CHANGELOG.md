@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/G-Arya-A/task_template/compare/v1.11.0...v1.12.0) (2026-08-07)
+
+
+### Features
+
+* BR acildiginda ilgili taska type:hata etiketi atilir ve state:revizyon yapilir ([fb787ee](https://github.com/G-Arya-A/task_template/commit/fb787ee17b2caeaa45e683f63a0c25ea199118be))
+
 # [1.11.0](https://github.com/G-Arya-A/task_template/compare/v1.10.1...v1.11.0) (2026-08-07)
 
 
