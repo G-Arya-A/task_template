@@ -43,6 +43,73 @@ jobs:
               }
             }
 
+            // QV acildiginda sonuca gore etiket ata ve ilgili TR'yi guncelle
+            if (title.startsWith('[QV]') && body) {
+              const resultMatch = body.match(/### Genel Sonuç\s*\r?\n\r?\n([^\r\n]+)/);
+              const taskMatch = body.match(/### İlgili Görev \(TR\)\s*\r?\n\r?\n#?(\d+)/);
+              const result = resultMatch ? resultMatch[1].trim() : '';
+
+              let eventLabel = '';
+              let parentState = '';
+              if (result.startsWith('GEÇTİ')) {
+                eventLabel = 'event:test-geçti';
+                parentState = 'state:yayınlanmış';
+              } else if (result.startsWith('KALDI')) {
+                eventLabel = 'event:test-kaldı';
+                parentState = 'state:revizyon';
+              }
+
+              if (eventLabel) {
+                try {
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    labels: [eventLabel]
+                  });
+                  console.log(`QV sonuc etiketi eklendi: ${eventLabel}`);
+                } catch (e) {
+                  console.log(`QV sonuc etiketi eklenemedi: ${eventLabel}`);
+                }
+
+                if (taskMatch && parentState) {
+                  const taskNum = parseInt(taskMatch[1]);
+                  try {
+                    const task = await github.rest.issues.get({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: taskNum
+                    });
+                    const taskLabels = task.data.labels.map(l => l.name);
+                    const newTaskLabels = taskLabels.filter(l => !l.startsWith('state:'));
+                    newTaskLabels.push(parentState);
+
+                    await github.rest.issues.update({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: taskNum,
+                      labels: newTaskLabels
+                    });
+
+                    await github.rest.issues.createComment({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: taskNum,
+                      body: result.startsWith('GEÇTİ')
+                        ? `✅ **QA doğrulama başarılı**\n\nQV: #${issue.number}\n\nDurum: → ${parentState}`
+                        : `❌ **QA doğrulama başarısız**\n\nQV: #${issue.number}\n\nDurum: → ${parentState}`
+                    });
+
+                    console.log(`Ilgili task #${taskNum} ${parentState} olarak guncellendi`);
+                  } catch (e) {
+                    console.log(`Ilgili task bulunamadi: #${taskNum}`);
+                  }
+                }
+              } else if (result.startsWith('ENGELLİ')) {
+                console.log('QV ENGELLİ durumunda; etiket atanmadi.');
+              }
+            }
+
             // Yeni RR acildiginda ilgili issue'yu revizyona gecir
             if (title.startsWith('[RR]') && body) {
               const match = issue.body.match(/#(\d+)/);
