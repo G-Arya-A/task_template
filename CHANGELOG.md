@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/G-Arya-A/task_template/compare/v1.10.1...v1.11.0) (2026-08-07)
+
+
+### Features
+
+* BR formuna ilgili gorev (TR) alani eklendi ([144ab28](https://github.com/G-Arya-A/task_template/commit/144ab286569fc8d49fd2f72c53dc5892d199f8d0))
+
 ## [1.10.1](https://github.com/G-Arya-A/task_template/compare/v1.10.0...v1.10.1) (2026-08-07)
 
 
