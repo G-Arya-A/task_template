@@ -11,6 +11,15 @@ body:
         Lütfen hatayı mümkün olduğunca detaylı açıklayın.
 
   - type: input
+    id: related-task
+    attributes:
+      label: "İlgili Görev (TR)"
+      description: "Bu hatanın bağlı olduğu görev varsa belirtin."
+      placeholder: "#42"
+    validations:
+      required: false
+
+  - type: input
     id: reporter
     attributes:
       label: "Raporlayan"
