@@ -56,7 +56,7 @@ jobs:
                 parentState = 'state:yayınlanmış';
               } else if (result.startsWith('KALDI')) {
                 eventLabel = 'event:test-kaldı';
-                parentState = 'state:revizyon';
+                parentState = 'state:başladı';
               }
 
               if (eventLabel) {
