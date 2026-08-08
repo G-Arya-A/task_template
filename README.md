@@ -148,12 +148,16 @@ yapılır. Varsayılan etiketler: `state:analiz`, `type:görev`, `priority:P3`.
 Mevcut bir davranışın hatası olarak raporlanması için kullanılır.
 Varsayılan etiketler: `state:analiz`, `type:hata`, `priority:P2`.
 
-**Form Bölümleri:** Raporlayan · Hata Önemi · Hata Açıklaması · Tekrar Oluşturma Adımları ·
-Beklenen Davranış · Gerçekleşen Davranış · Ortam Bilgisi · Ekran Görüntüleri/Loglar ·
-İletişim Kanalı · Hata Kontrol Listesi.
+**Form Bölümleri:** İlgili Görev (TR) · Raporlayan · Hata Önemi · Hata Açıklaması · Tekrar
+Oluşturma Adımları · Beklenen Davranış · Gerçekleşen Davranış · Ortam Bilgisi · Ekran
+Görüntüleri/Loglar · İletişim Kanalı · Hata Kontrol Listesi.
 
 **Hata Önemi Derecelendirmesi:** Kritik (sistem durdurucu) · Yüksek (temel özellik çalışmıyor) ·
 Orta (kısmi çalışma sorunu) · Düşük (kozmetik/küçük sorun).
+
+> **Otomasyon Notu:** BR formundaki "İlgili Görev (TR)" alanı `#<numara>` biçiminde
+> girildiğinde otomasyon; ilgili iş kaydına `type:hata` etiketi ekler, kaydı `state:revizyon`
+> durumuna alır ve bilgilendirme yorumu yazar.
 
 ### 5.3. RR — Revizyon Talebi `[RR]`
 
@@ -187,6 +191,12 @@ Test Tarihi · Genel Sonuç · Başarısız Senaryolar · Regresyon Değerlendir
 **Genel Sonuç Seçenekleri:** GEÇTİ (tüm kriterler sağlandı) · GEÇTİ (kritik kriterler sağlandı,
 kritik olmayan sorunlar belgelendi) · KALDI (bir veya daha fazla kriter sağlanmadı) · ENGELLİ
 (doğrulama gerçekleştirilemiyor).
+
+> **Otomasyon Notu:** QV formundaki "Genel Sonuç" seçimine göre otomasyon; **GEÇTİ**'de QV'ye
+> `event:test-geçti` etiketi atar ve ilgili TR'yi `state:yayınlanmış` durumuna getirir,
+> **KALDI**'da QV'ye `event:test-kaldı` etiketi atar ve ilgili TR'yi düzeltme için `state:başladı`
+> durumuna döndürür (resmi revizyon talebi `state:revizyon` olarak ayrı kalır). **ENGELLİ**'de
+> ek etiket atanmaz; yalnızca kayıt tutulur.
 
 ---
 
@@ -232,7 +242,7 @@ repo üzerinde yayınlandığı anda GitHub tarafından aktif edilir.
 
 | İş Akışı | Tetikleyici Olay | Gerçekleştirilen İşlem |
 |----------|------------------|------------------------|
-| `auto-label` | Issue oluşturulduğu an | Formdaki Sorumlu Ekip seçiminden `team:<ekip>` etiketi otomatik atanır. Aynı zamanda `[RR]` kaydı açıldıysa ilgili kayıt `state:revizyon` durumuna alınır ve bilgilendirme yorumu yazılır. |
+| `auto-label` | Issue oluşturulduğu an | Formdaki Sorumlu Ekip seçiminden `team:<ekip>` etiketi otomatik atanır. `[RR]` açıldıysa ilgili kayıt `state:revizyon` durumuna alınır. `[BR]` açıldıysa ilgili kayda `type:hata` eklenir ve `state:revizyon` yapılır. `[QV]` açıldıysa sonuca göre QV'ye `event:test-geçti` / `event:test-kaldı` etiketi atanır ve ilgili TR `state:yayınlanmış` / `state:başladı` durumuna getirilir. |
 | `on-rr-closed` | Issue kapatıldığı an | `[RR]` kaydı kapatıldıysa ilgili iş kaydı `state:başladı` durumuna döndürülür ve bilgilendirme yorumu yazılır. |
 | `on-approve` | `state:onaylı` etiketi eklendiği an | "Talep onaylandı" bildirim yorumu oluşturulur. |
 | `on-test-result` | `event:test-geçti` / `event:test-kaldı` etiketi eklendiği an | Test sonucu bildirim yorumu oluşturulur. |
